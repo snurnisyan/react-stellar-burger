@@ -1,0 +1,52 @@
+.section {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+
+.scrollbarContainer {
+  max-height: 74vh;
+  scrollbar-color: #2F2F37 #8585AD;
+  scrollbar-width: thin;
+  overflow-y: auto;
+}
+
+.scrollbarContainer::-webkit-scrollbar {
+  width: 8px;
+  height: 664px;
+}
+
+.scrollbarContainer::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+  margin-bottom: 52px;
+}
+
+.scrollbarContainer::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(30px, 1fr));
+  column-gap: 24px;
+}
+
+.ingredientContainer {
+  justify-self: center;
+}
+
+.price {
+  display: flex;
+  justify-content: center;
+}
+
+.description {
+  text-align: center;
+}
+
+.imageContainer {
+  position: relative;
+}

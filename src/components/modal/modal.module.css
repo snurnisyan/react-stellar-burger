@@ -1,0 +1,23 @@
+.popup {
+  display: flex;
+  flex-direction: column;
+  background-color: #1C1C21;
+  box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
+  border-radius: 40px;
+  width: 720px;
+}
+
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.closeButton {
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+  line-height: 0;
+  align-self: center;
+}

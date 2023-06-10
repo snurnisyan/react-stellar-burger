@@ -1,0 +1,18 @@
+.ingredient {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nutrientsContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 120px);
+  grid-template-rows: max-content;
+  column-gap: 20px;
+  justify-items: center;
+}
+
+.nutrientsText {
+  text-align: center;
+}
