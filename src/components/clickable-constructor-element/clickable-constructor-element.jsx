@@ -32,7 +32,7 @@ export default function ClickableConstructorElement({ extraClass, type, isLocked
 ClickableConstructorElement.propTypes = {
   text: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
-  price: PropTypes.bool.isRequired,
+  price: PropTypes.number.isRequired,
   type: PropTypes.string,
   isLocked: PropTypes.bool,
   extraClass: PropTypes.string,

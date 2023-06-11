@@ -16,7 +16,7 @@ export default function IngredientComponent({ ingredient, counterState, handleCo
   }
 
   return (
-    <div className={classNames.ingredientContainer} onClick={() => { handleCounterClick(ingredient._id) }} key={ingredient._id}>
+    <div className={classNames.ingredientContainer} onClick={() => { handleCounterClick(ingredient._id) }}>
       <div className={classNames.imageContainer}>
         <img className={classNames.image} src={ingredient.image} alt={ingredient.name}/>
         { (counterState[ingredient._id] > 0) &&

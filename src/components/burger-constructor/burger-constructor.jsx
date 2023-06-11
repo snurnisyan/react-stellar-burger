@@ -11,7 +11,7 @@ export default function BurgerConstructor({ ingredients, ingredientsCounters }) 
   const classNames = {
     constructorSection: styles.section + " pt-25 pl-4 pr-2",
     bunElement: "ml-8 mb-4 mr-2",
-    constructorElement: "ml-1",
+    constructorElement: styles.constructor__element + " ml-1",
     dragContainer: styles.drag__container + " mb-4 pr-2",
     priceContainer: styles.price__container,
     scrollbarContainer: styles.scrollbar__container

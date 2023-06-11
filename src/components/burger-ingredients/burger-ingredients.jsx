@@ -8,9 +8,6 @@ import {transformArrayToMap} from "../../utils/utils";
 
 export default function BurgerIngredients({ ingredients, counterState, setCounterState}) {
   const [current, setCurrent] = React.useState('булки');
-  if (ingredients.length === 0) {
-    return (<></>); // TODO: Loader?
-  }
   const buns = ingredients.filter((element) => {
     return element.type === "bun";
   });
@@ -40,14 +37,16 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
     return ingredientsMap[id].type === 'bun'
   });
 
-  if (!hasBun) {
-    const defaultBun = ingredients.find((ingredient) => {
-      return ingredient.type === 'bun'
-    })
-    const newState = {...counterState};
-    newState[defaultBun._id] = 1;
-    setCounterState(newState);
-  }
+  React.useEffect(() => {
+    if (!hasBun && ingredients.length > 0) {
+      const defaultBun = ingredients.find((ingredient) => {
+        return ingredient.type === 'bun'
+      })
+      const newState = {...counterState};
+      newState[defaultBun._id] = 1;
+      setCounterState(newState);
+    }
+  }, [hasBun, ingredients, counterState, setCounterState]);
 
   function deleteBun(state) {
     const newState = {};
@@ -68,7 +67,9 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
     setCounterState(newState);
   }
 
-
+  if (ingredients.length === 0) {
+    return (<></>); // TODO: Loader?
+  }
   return (
     <section className={classNames.ingredientsSection}>
       <h2 className={classNames.title}>Соберите бургер</h2>
@@ -84,39 +85,42 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
         </Tab>
       </div>
       <div className={classNames.scrollbarContainer}>
-        <h3 className={classNames.subtitle}>Булки</h3>
-          <div className={classNames.ingredientsGrid}>
-            { buns.map(bun =>
-              <IngredientComponent
-                ingredient={bun}
-                counterState={counterState}
-                handleCounterClick={handleCounterClick}
-                classNames={classNames}
-              />)
-            }
-          </div>
-          <h3 className={classNames.subtitle}>Соусы</h3>
-            <div className={classNames.ingredientsGrid}>
-            { sauces.map(sauce =>
-              <IngredientComponent
-                ingredient={sauce}
-                counterState={counterState}
-                handleCounterClick={handleCounterClick}
-                classNames={classNames}
-              />)
-            }
-            </div>
-          <h3 className={classNames.subtitle}>Начинки</h3>
-            <div className={classNames.ingredientsGrid}>
-            { fillings.map((filling) =>
-              <IngredientComponent
-                ingredient={filling}
-                counterState={counterState}
-                handleCounterClick={handleCounterClick}
-                classNames={classNames}
-              />)
-            }
-          </div>
+        <h3 key={"buns"} className={classNames.subtitle}>Булки</h3>
+        <div className={classNames.ingredientsGrid}>
+        { buns.map(bun =>
+          <IngredientComponent
+            ingredient={bun}
+            counterState={counterState}
+            handleCounterClick={handleCounterClick}
+            classNames={classNames}
+            key={bun._id}
+          />)
+        }
+        </div>
+        <h3 key={"sauces"} className={classNames.subtitle}>Соусы</h3>
+        <div className={classNames.ingredientsGrid}>
+        { sauces.map(sauce =>
+          <IngredientComponent
+            ingredient={sauce}
+            counterState={counterState}
+            handleCounterClick={handleCounterClick}
+            classNames={classNames}
+            key={sauce._id}
+          />)
+        }
+        </div>
+        <h3 key={"fillings"} className={classNames.subtitle}>Начинки</h3>
+        <div className={classNames.ingredientsGrid}>
+        { fillings.map((filling) =>
+          <IngredientComponent
+            ingredient={filling}
+            counterState={counterState}
+            handleCounterClick={handleCounterClick}
+            classNames={classNames}
+            key={filling._id}
+          />)
+        }
+        </div>
       </div>
     </section>
   );

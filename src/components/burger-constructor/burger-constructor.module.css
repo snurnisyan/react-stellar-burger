@@ -11,6 +11,11 @@
 
 }
 
+.constructor__element {
+  width: 536px;
+
+}
+
 .price__container {
   display: flex;
   justify-content: flex-end;
