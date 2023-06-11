@@ -8,12 +8,12 @@
 }
 
 
-.headerContainer {
+.header__container {
   display: flex;
   justify-content: space-between;
 }
 
-.closeButton {
+.close__button {
   border: 0;
   padding: 0;
   background-color: transparent;

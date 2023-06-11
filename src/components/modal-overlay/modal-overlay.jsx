@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "../modal-overlay/modal-overlay.module.css";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import {modalRoot} from "../../utils/constans";
 
-const modalRoot = document.getElementById("modal-root");
 export default function ModalOverlay({ opened, onModalClose, children }) {
 
   let className = '';
@@ -48,4 +49,10 @@ export default function ModalOverlay({ opened, onModalClose, children }) {
       {children}
     </div>
   ), modalRoot)
+}
+
+ModalOverlay.propTypes = {
+  opened: PropTypes.bool.isRequired,
+  children: PropTypes.element.isRequired,
+  onModalClose: PropTypes.func.isRequired
 }

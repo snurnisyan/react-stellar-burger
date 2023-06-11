@@ -1,24 +1,26 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import styles from "../burger-constructor/burger-constructor.module.css";
-import {CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderButton from "../order-button/order-button";
 import ClickableConstructorElement from "../clickable-constructor-element/clickable-constructor-element";
-
+import { ingredientPropType } from "../../utils/prop-types";
+import {transformArrayToMap} from "../../utils/utils";
 
 export default function BurgerConstructor({ ingredients, ingredientsCounters }) {
   const classNames = {
     constructorSection: styles.section + " pt-25 pl-4 pr-2",
     bunElement: "ml-8 mb-4 mr-2",
     constructorElement: "ml-1",
-    dragContainer: styles.dragContainer + " mb-4 pr-2",
-    priceContainer: styles.priceContainer,
-    scrollbarContainer: styles.scrollbarContainer
+    dragContainer: styles.drag__container + " mb-4 pr-2",
+    priceContainer: styles.price__container,
+    scrollbarContainer: styles.scrollbar__container
   }
   const chosenIds = Object.keys(ingredientsCounters);
 
-  const ingredientsMap = {};
-  ingredients.forEach((ingredient) => {
-    ingredientsMap[ingredient._id] = ingredient;
+  const ingredientsMap = transformArrayToMap({
+    array: ingredients,
+    keyFunc: ingredient => ingredient._id,
   });
 
   const chosenIngredients = [];
@@ -29,7 +31,6 @@ export default function BurgerConstructor({ ingredients, ingredientsCounters }) 
       chosenIngredients.push(ingredientsMap[id]);
     }
   });
-
 
   const totalPrice = chosenIngredients.reduce(function(total, ingredient) {
     total = total + ingredient.price;
@@ -91,4 +92,9 @@ export default function BurgerConstructor({ ingredients, ingredientsCounters }) 
       </div>
     </section>
   )
+}
+
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
+  ingredientsCounters: PropTypes.object.isRequired
 }

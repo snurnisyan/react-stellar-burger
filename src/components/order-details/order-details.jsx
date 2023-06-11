@@ -3,13 +3,13 @@ import styles from "../order-details/order-details.module.css";
 import Modal from "../modal/modal";
 import orderConfirmSvg from '../../images/order-confirm.svg'
 import ModalOverlay from "../modal-overlay/modal-overlay";
-
+import PropTypes from "prop-types";
 
 export default function OrderDetails({ opened, onModalClose }) {
 
   const classNames = {
     orderContainer: styles.order,
-    orderNumber: styles.orderNumber + " text text_type_digits-large pt-15 pb-8",
+    orderNumber: styles.order__number + " text text_type_digits-large pt-15 pb-8",
     orderTextId: "text text_type_main-medium",
     orderImg: "pt-15 pb-15",
     orderText: "text text_type_main-default",
@@ -29,4 +29,9 @@ export default function OrderDetails({ opened, onModalClose }) {
       </Modal>
     </ModalOverlay>
   )
+}
+
+OrderDetails.propTypes = {
+  header: PropTypes.string,
+  onModalClose: PropTypes.func.isRequired
 }

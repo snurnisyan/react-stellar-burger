@@ -5,20 +5,20 @@
   box-sizing: border-box;
 }
 
-.dragContainer {
+.drag__container {
   display: flex;
   align-items: center;
 
 }
 
-.priceContainer {
+.price__container {
   display: flex;
   justify-content: flex-end;
   padding-top: 30px;
   align-items: center;
 }
 
-.scrollbarContainer {
+.scrollbar__container {
   max-height: 41.5vh;
   scrollbar-color: #2F2F37 #8585AD;
   scrollbar-width: thin;
@@ -27,16 +27,16 @@
   transform: translateX(8px);
 }
 
-.scrollbarContainer::-webkit-scrollbar {
+.scrollbar__container::-webkit-scrollbar {
   width: 8px;
   height: 664px;
 }
 
-.scrollbarContainer::-webkit-scrollbar-track {
+.scrollbar__container::-webkit-scrollbar-track {
   background-color: #2F2F37;
 }
 
-.scrollbarContainer::-webkit-scrollbar-thumb {
+.scrollbar__container::-webkit-scrollbar-thumb {
   background-color: #8585AD;
 }
 

@@ -2,15 +2,16 @@ import React from "react";
 import styles from "../ingredient-details/ingredient-details.module.css";
 import Modal from "../modal/modal";
 import ModalOverlay from "../modal-overlay/modal-overlay";
-
+import PropTypes from "prop-types";
+import {ingredientPropType} from "../../utils/prop-types";
 
 export default function IngredientDetails({ ingredient, opened, onModalClose }) {
   const classNames = {
     ingredientContainer: styles.ingredient,
     ingredientImg: " ",
     ingredientTitle: "text text_type_main-medium pt-4 pb-8",
-    nutrientsContainer: styles.nutrientsContainer,
-    nutrientsText: styles.nutrientsText + " text text_type_main-default text_color_inactive"
+    nutrientsContainer: styles.nutrients__container,
+    nutrientsText: styles.nutrients__text + " text text_type_main-default text_color_inactive"
   }
 
   return (
@@ -41,4 +42,10 @@ export default function IngredientDetails({ ingredient, opened, onModalClose }) 
       </Modal>
     </ModalOverlay>
   )
+}
+
+IngredientDetails.propTypes = {
+  ingredient: ingredientPropType.isRequired,
+  opened: PropTypes.bool.isRequired,
+  onModalClose: PropTypes.func.isRequired
 }

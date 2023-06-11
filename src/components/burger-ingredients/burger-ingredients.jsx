@@ -2,6 +2,9 @@ import React from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./burger-ingredients.module.css";
 import IngredientComponent from "../ingredient-component/ingredient-component";
+import PropTypes from "prop-types";
+import {ingredientPropType} from "../../utils/prop-types";
+import {transformArrayToMap} from "../../utils/utils";
 
 export default function BurgerIngredients({ ingredients, counterState, setCounterState}) {
   const [current, setCurrent] = React.useState('булки');
@@ -23,18 +26,12 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
     title: "text text_type_main-large pt-10 pb-5",
     subtitle: "text text_type_main-medium pt-10 pb-6 m-0",
     ingredientsGrid: styles.grid + " pl-4 pr-1",
-    imageContainer: styles.imageContainer,
-    ingredientContainer: styles.ingredientContainer + " pb-8",
-    priceContainer: styles.price + " mt-1 mb-1",
-    price: "text text_type_digits-default mr-2",
-    description: styles.description + " text text_type_main-default",
-    image: "pr-4 pl-4",
-    scrollbarContainer: styles.scrollbarContainer
+    scrollbarContainer: styles.scrollbar__container
   }
 
-  const ingredientsMap = {};
-  ingredients.forEach((ingredient) => {
-    ingredientsMap[ingredient._id] = ingredient;
+  const ingredientsMap = transformArrayToMap({
+    array: ingredients,
+    keyFunc: ingredient => ingredient._id,
   });
 
   const chosenIds = Object.keys(counterState);
@@ -56,7 +53,7 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
     const newState = {};
     Object.keys(state).forEach(id => {
       if (ingredientsMap[id].type !== 'bun') {
-        newState[id] = state[id]
+        newState[id] = state[id];
       }
     })
     return newState;
@@ -67,7 +64,7 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
     if (ingredientsMap[key].type === 'bun') {
       newState = deleteBun(newState);
     }
-    newState[key] = (counterState[key] || 0) + 1;
+    newState[key] = (newState[key] || 0) + 1;
     setCounterState(newState);
   }
 
@@ -123,4 +120,10 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
       </div>
     </section>
   );
+}
+
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
+  counterState: PropTypes.object.isRequired,
+  setCounterState: PropTypes.func.isRequired
 }

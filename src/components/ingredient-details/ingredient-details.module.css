@@ -5,7 +5,7 @@
   align-items: center;
 }
 
-.nutrientsContainer {
+.nutrients__container {
   display: grid;
   grid-template-columns: repeat(4, 120px);
   grid-template-rows: max-content;
@@ -13,6 +13,6 @@
   justify-items: center;
 }
 
-.nutrientsText {
+.nutrients__text {
   text-align: center;
 }
