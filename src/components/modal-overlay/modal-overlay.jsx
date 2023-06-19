@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "../modal-overlay/modal-overlay.module.css";
-import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import {modalRoot} from "../../utils/constans";
 
 export default function ModalOverlay({ opened, onModalClose, children }) {
 

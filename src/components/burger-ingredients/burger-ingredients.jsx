@@ -73,10 +73,10 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
     newState[key] = (newState[key] || 0) + 1;
     setCounterState(newState);
   }
-  console.log(counterState);
   if (ingredients.length === 0) {
     return (<></>); // TODO: Loader?
   }
+
   return (
     <section className={classNames.ingredientsSection}>
       <h2 className={classNames.title}>Соберите бургер</h2>
@@ -99,7 +99,6 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
             ingredient={bun}
             counterState={counterState}
             handleCounterClick={handleCounterClick}
-            classNames={classNames}
             key={bun._id}
           />)
         }
@@ -111,7 +110,6 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
             ingredient={sauce}
             counterState={counterState}
             handleCounterClick={handleCounterClick}
-            classNames={classNames}
             key={sauce._id}
           />)
         }
@@ -123,7 +121,6 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
             ingredient={filling}
             counterState={counterState}
             handleCounterClick={handleCounterClick}
-            classNames={classNames}
             key={filling._id}
           />)
         }

@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import {ingredientPropType} from "../../utils/prop-types";
 import styles from "../ingredient-component/ingredient-component.module.css";
+import IngredientModal from "../ingredient-modal/ingredient-modal";
 
 export default function IngredientComponent({ ingredient, counterState, handleCounterClick }) {
 
@@ -15,8 +16,17 @@ export default function IngredientComponent({ ingredient, counterState, handleCo
     image: "pr-4 pl-4",
   }
 
+  const [ isOpened, setIsOpened ] = useState(false);
+  const openModal = () => {
+    setIsOpened(true);
+  }
+  const closeModal = () => {
+    setIsOpened(false);
+  }
+
   return (
-    <div className={classNames.ingredientContainer} onClick={() => { handleCounterClick(ingredient._id) }}>
+    <div className={classNames.ingredientContainer} onClick={() => { handleCounterClick(ingredient._id); openModal() }}>
+      <IngredientModal opened={isOpened} onModalClose={closeModal} ingredient={ingredient} />
       <div className={classNames.imageContainer}>
         <img className={classNames.image} src={ingredient.image} alt={ingredient.name}/>
         { (counterState[ingredient._id] > 0) &&

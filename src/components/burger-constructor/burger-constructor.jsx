@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import styles from "../burger-constructor/burger-constructor.module.css";
-import { CurrencyIcon, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon, DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderButton from "../order-button/order-button";
-import ClickableConstructorElement from "../clickable-constructor-element/clickable-constructor-element";
 import { ingredientPropType } from "../../utils/prop-types";
 import {transformArrayToMap} from "../../utils/utils";
 
@@ -50,39 +49,36 @@ export default function BurgerConstructor({ ingredients, ingredientsCounters }) 
     <section className={classNames.constructorSection}>
       { (chosenIngredients.length > 0) && (
         <div>
-          <ClickableConstructorElement
+          <ConstructorElement
             extraClass={classNames.bunElement}
             type="top"
             isLocked={true}
             text={bun.name + " (верх)"}
             price={bun.price}
             thumbnail={bun.image_mobile}
-            ingredient={bun}
           />
           <div className={classNames.scrollbarContainer}>
             { fillings.map((filling, index) => {
             return (
               <div className={classNames.dragContainer} key={index}>
                 <DragIcon type="primary"/>
-                <ClickableConstructorElement
+                <ConstructorElement
                   extraClass={classNames.constructorElement}
                   text={filling.name}
                   price={filling.price}
                   thumbnail={filling.image_mobile}
-                  ingredient={filling}
                 />
               </div>
               )})
             }
           </div>
-          <ClickableConstructorElement
+          <ConstructorElement
             extraClass={classNames.bunElement}
             type="bottom"
             isLocked={true}
             text={bun.name + " (низ)"}
             price={bun.price}
             thumbnail={bun.image_mobile}
-            ingredient={bun}
           />
         </div>
       )}

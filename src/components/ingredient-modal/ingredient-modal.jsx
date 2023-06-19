@@ -13,7 +13,7 @@ export default function IngredientModal({ ingredient, opened, onModalClose }) {
   )
 }
 
-IngredientDetails.propTypes = {
+IngredientModal.propTypes = {
   opened: PropTypes.bool.isRequired,
   onModalClose: PropTypes.func.isRequired
 }

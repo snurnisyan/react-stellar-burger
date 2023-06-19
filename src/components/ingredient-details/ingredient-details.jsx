@@ -5,15 +5,14 @@ import {ingredientPropType} from "../../utils/prop-types";
 export default function IngredientDetails({ ingredient }) {
   const classNames = {
     ingredientContainer: styles.ingredient,
-    ingredientImg: " ",
     ingredientTitle: "text text_type_main-medium pt-4 pb-8",
     nutrientsContainer: styles.nutrients__container,
     nutrientsText: styles.nutrients__text + " text text_type_main-default text_color_inactive"
   }
-
+  console.log(ingredient);
   return (
     <div className={classNames.ingredientContainer}>
-      <img className={classNames.ingredientImg} src={ingredient.image_large} alt='заказ подтвержден'/>
+      <img src={ingredient.image_large} alt={ingredient.name}/>
       <h3 className={classNames.ingredientTitle}>{ingredient.name}</h3>
       <div className={classNames.nutrientsContainer}>
         <div>
