@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../modal-overlay/modal-overlay.module.css";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
@@ -24,7 +24,7 @@ export default function ModalOverlay({ opened, onModalClose, children }) {
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.addEventListener('keydown', closeByEsc);
     return () => {
       document.removeEventListener('keydown', closeByEsc);
@@ -43,12 +43,11 @@ export default function ModalOverlay({ opened, onModalClose, children }) {
   }
 
 
-  return ReactDOM.createPortal(
-  (
+  return (
     <div className={setClassName()} onClick={closeFromOutside}>
       {children}
     </div>
-  ), modalRoot)
+  )
 }
 
 ModalOverlay.propTypes = {

@@ -18,19 +18,19 @@ export default function AppHeader() {
       </div>
       <div className={classNames.headerContainer}>
         <nav className={classNames.nav}>
-          <div className={classNames.navElement + " mr-2"} >
+          <a href="#" className={classNames.navElement + " mr-2"} style={{color: 'white'}}>
             <BurgerIcon type="primary" />
             Конструктор
-          </div>
-          <div className={classNames.navElement + classNames.navElementInactive}>
+          </a>
+          <a href="#" className={classNames.navElement + classNames.navElementInactive}>
             <ListIcon type="secondary" />
             Лента заказов
-          </div>
+          </a>
         </nav>
-        <div className={classNames.navElement + classNames.navElementInactive}>
+        <a href="#" className={classNames.navElement + classNames.navElementInactive}>
           <ProfileIcon type="secondary" />
           Личный кабинет
-        </div>
+        </a>
       </div>
     </header>
   );

@@ -34,6 +34,6 @@ export default function IngredientComponent({ ingredient, counterState, handleCo
 
 IngredientComponent.propTypes = {
   ingredient: ingredientPropType.isRequired,
-  counterState: PropTypes.object.isRequired,
+  counterState: PropTypes.objectOf(PropTypes.number).isRequired,
   handleCounterClick: PropTypes.func.isRequired
 }

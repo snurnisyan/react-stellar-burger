@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../order-details/order-details";
 
 
 export default function OrderButton() {
 
-  const [ isOpened, setIsOpened] = React.useState(false);
+  const [ isOpened, setIsOpened] = useState(false);
 
   const openModal = () => {
     setIsOpened(true);
@@ -22,6 +22,5 @@ export default function OrderButton() {
       </Button>
       <OrderDetails opened={isOpened} onModalClose={closeModal}/>
     </>
-
   )
 }

@@ -96,5 +96,5 @@ export default function BurgerConstructor({ ingredients, ingredientsCounters }) 
 
 BurgerConstructor.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
-  ingredientsCounters: PropTypes.object.isRequired
+  ingredientsCounters: PropTypes.objectOf(PropTypes.number).isRequired,
 }

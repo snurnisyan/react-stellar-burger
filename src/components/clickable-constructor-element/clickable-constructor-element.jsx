@@ -1,12 +1,12 @@
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+import React, { useState } from "react";
 import {ingredientPropType} from "../../utils/prop-types";
 import PropTypes from "prop-types";
+import IngredientModal from "../ingredient-modal/ingredient-modal";
 
 export default function ClickableConstructorElement({ extraClass, type, isLocked, text, price, thumbnail, ingredient }) {
 
-  const [ isOpened, setIsOpened ] = React.useState(false);
+  const [ isOpened, setIsOpened ] = useState(false);
   const openModal = () => {
     setIsOpened(true);
   }
@@ -24,7 +24,7 @@ export default function ClickableConstructorElement({ extraClass, type, isLocked
         price={price}
         thumbnail={thumbnail}
       />
-      <IngredientDetails opened={isOpened} onModalClose={closeModal} ingredient={ingredient}/>
+      <IngredientModal opened={isOpened} onModalClose={closeModal} ingredient={ingredient}/>
     </div>
   )
 }

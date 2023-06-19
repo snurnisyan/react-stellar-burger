@@ -1,21 +1,32 @@
 .popup {
-  display: flex;
+  display: none;
   flex-direction: column;
   background-color: #1C1C21;
   box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
   border-radius: 40px;
   width: 720px;
+  transition: visibility .5s,opacity .5s linear;
+  opacity: 0;
+  visibility: hidden;
+  box-sizing: border-box;
+}
+
+.popup_opened {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
 }
 
 
 .header__container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .close__button {
   border: 0;
-  padding: 0;
+  padding: 20px 0;
   background-color: transparent;
   cursor: pointer;
   line-height: 0;

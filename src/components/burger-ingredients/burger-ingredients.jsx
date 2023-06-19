@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./burger-ingredients.module.css";
 import IngredientComponent from "../ingredient-component/ingredient-component";
@@ -7,16 +7,23 @@ import {ingredientPropType} from "../../utils/prop-types";
 import {transformArrayToMap} from "../../utils/utils";
 
 export default function BurgerIngredients({ ingredients, counterState, setCounterState}) {
-  const [current, setCurrent] = React.useState('булки');
-  const buns = ingredients.filter((element) => {
-    return element.type === "bun";
-  });
-  const sauces = ingredients.filter((element) => {
-    return element.type === "sauce";
-  });
-  const fillings = ingredients.filter((element) => {
-    return element.type === "main";
-  });
+  const [current, setCurrent] = useState('булки');
+
+  const buns = useMemo(() => {
+      return ingredients.filter((element) => {
+        return element.type === "bun";
+      });
+    }, [ingredients]);
+  const sauces = useMemo(() => {
+    return ingredients.filter((element) => {
+      return element.type === "sauce";
+    });
+  }, [ingredients]);
+  const fillings = useMemo(() => {
+    return ingredients.filter((element) => {
+      return element.type === "main";
+    });
+  }, [ingredients]);
 
   const classNames = {
     ingredientsSection: styles.section,
@@ -37,7 +44,7 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
     return ingredientsMap[id].type === 'bun'
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!hasBun && ingredients.length > 0) {
       const defaultBun = ingredients.find((ingredient) => {
         return ingredient.type === 'bun'
@@ -66,7 +73,7 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
     newState[key] = (newState[key] || 0) + 1;
     setCounterState(newState);
   }
-
+  console.log(counterState);
   if (ingredients.length === 0) {
     return (<></>); // TODO: Loader?
   }
@@ -128,6 +135,6 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
 
 BurgerIngredients.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
-  counterState: PropTypes.object.isRequired,
+  counterState: PropTypes.objectOf(PropTypes.number).isRequired,
   setCounterState: PropTypes.func.isRequired
 }

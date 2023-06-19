@@ -16,3 +16,7 @@
 .nutrients__text {
   text-align: center;
 }
+
+.nutrients__text:first-of-type {
+  padding-bottom: 8px;
+}

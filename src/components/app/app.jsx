@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from "./app.module.css";
 import AppHeader from './../app-header/app-header';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
@@ -8,14 +8,18 @@ import {urlName} from "../../utils/constans";
 
 
 export default function App() {
-  const [state, setState] = React.useState({ ingredients: [] });
-  const [counterState, setCounterState] = React.useState({});
+  const [data, setData] = useState({ ingredients: [] });
+  const [counterState, setCounterState] = useState({});
 
-  React.useEffect (() => {
+  useEffect (() => {
     const getApp = async() => {
       const res = await fetch (`${urlName}`);
-      const resJson = await res.json();
-      setState({ ingredients: resJson.data });
+      if (res.ok) {
+        const resJson = await res.json();
+        setData({ ingredients: resJson.data });
+      } else {
+        throw new Error(`Ошибка: ${res.status} - ${res.statusText}`);
+      }
     }
     getApp()
       .catch(console.error);
@@ -25,8 +29,8 @@ export default function App() {
     <>
       <AppHeader />
       <main className={styles.main}>
-        <BurgerIngredients ingredients={state.ingredients} counterState={counterState} setCounterState={setCounterState}/>
-        <BurgerConstructor ingredients={state.ingredients} ingredientsCounters={counterState}/>
+        <BurgerIngredients ingredients={data.ingredients} counterState={counterState} setCounterState={setCounterState}/>
+        <BurgerConstructor ingredients={data.ingredients} ingredientsCounters={counterState}/>
       </main>
     </>
   );
