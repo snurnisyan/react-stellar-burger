@@ -1,17 +1,37 @@
+import React, { useEffect, useState } from 'react';
 import styles from "./app.module.css";
-import { data } from "../../utils/data";
+import AppHeader from './../app-header/app-header';
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
+import {urlName} from "../../utils/constans";
 
-function App() {
+
+
+export default function App() {
+  const [data, setData] = useState({ ingredients: [] });
+  const [counterState, setCounterState] = useState({});
+
+  useEffect (() => {
+    const getApp = async() => {
+      const res = await fetch (`${urlName}`);
+      if (res.ok) {
+        const resJson = await res.json();
+        setData({ ingredients: resJson.data });
+      } else {
+        throw new Error(`Ошибка: ${res.status} - ${res.statusText}`);
+      }
+    }
+    getApp()
+      .catch(console.error);
+  }, []);
+
   return (
-    <div className={styles.app}>
-      <pre style={{
-      	margin: "auto",
-      	fontSize: "1.5rem"
-      }}>
-      	Измените src/components/app/app.jsx и сохраните для обновления.
-      </pre>
-    </div>
+    <>
+      <AppHeader />
+      <main className={styles.main}>
+        <BurgerIngredients ingredients={data.ingredients} counterState={counterState} setCounterState={setCounterState}/>
+        <BurgerConstructor ingredients={data.ingredients} ingredientsCounters={counterState}/>
+      </main>
+    </>
   );
 }
-
-export default App;

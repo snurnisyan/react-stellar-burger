@@ -1,0 +1,17 @@
+.ingredient__container {
+  justify-self: center;
+
+}
+
+.price {
+  display: flex;
+  justify-content: center;
+}
+
+.description {
+  text-align: center;
+}
+
+.image__container {
+  position: relative;
+}

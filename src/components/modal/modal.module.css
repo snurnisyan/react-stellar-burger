@@ -1,0 +1,47 @@
+.popup {
+  display: flex;
+  flex-direction: column;
+  background-color: #1C1C21;
+  box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
+  border-radius: 40px;
+  width: 720px;
+  box-sizing: border-box;
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close__button {
+  border: 0;
+  padding: 20px 0;
+  background-color: transparent;
+  cursor: pointer;
+  line-height: 0;
+  align-self: center;
+}
+
+/*
+.transition-enter {
+  transition: visibility .5s,opacity .5s linear;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.transition-enter-active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.transition-exit {
+  visibility: visible;
+  opacity: 1;
+}
+
+.transition-exit-active {
+  transition: visibility .5s,opacity .5s linear;
+  opacity: 0;
+  visibility: hidden;
+}*/

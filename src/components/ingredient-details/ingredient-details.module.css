@@ -1,0 +1,22 @@
+.ingredient {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nutrients__container {
+  display: grid;
+  grid-template-columns: repeat(4, 120px);
+  grid-template-rows: max-content;
+  column-gap: 20px;
+  justify-items: center;
+}
+
+.nutrients__text {
+  text-align: center;
+}
+
+.nutrients__text:first-of-type {
+  padding-bottom: 8px;
+}
