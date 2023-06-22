@@ -1,13 +1,58 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./burger-ingredients.module.css";
 import IngredientComponent from "../ingredient-component/ingredient-component";
-import PropTypes from "prop-types";
-import {ingredientPropType} from "../../utils/prop-types";
 import {transformArrayToMap} from "../../utils/utils";
+import {useDispatch, useSelector} from "react-redux";
+import {REPLACE_BUN} from "../../services/actions/burger-constructor";
+import {SET_INGREDIENT} from "../../services/actions/ingredient-details";
+import IngredientModal from "../ingredient-modal/ingredient-modal";
+import {useInView} from 'react-hook-inview'
+import {tabBunsValue, tabSaucesValue, tabFillingsValue} from "../../utils/constans";
 
-export default function BurgerIngredients({ ingredients, counterState, setCounterState}) {
+export default function BurgerIngredients() {
+  const classNames = {
+    ingredientsSection: styles.section,
+    title: "text text_type_main-large pt-10 pb-5",
+    subtitle: "text text_type_main-medium pt-10 pb-6 m-0",
+    ingredientsGrid: styles.grid + " pl-4 pr-1",
+    scrollbarContainer: styles.scrollbar__container
+  }
+
   const [current, setCurrent] = useState('булки');
+
+  const refBunsScroll = useRef(null);
+  const refSaucesScroll = useRef(null);
+  const refFillingsScroll = useRef(null);
+
+  const [refBuns, isVisibleBuns] = useInView({threshold: 0.1});
+  const [refSauces, isVisibleSauces] = useInView({threshold: 0.1});
+  const [refFillings, isVisibleFillings] = useInView({threshold: 0.1});
+
+  const handleScroll = useCallback((ref, value) => {
+    ref.current.scrollIntoView();
+    setCurrent(value);
+  }, [setCurrent]);
+
+  useEffect(() => {
+    let newActiveTab = '';
+    if (isVisibleBuns) {
+      newActiveTab = tabBunsValue;
+    }
+    if (isVisibleSauces && !isVisibleBuns) {
+      newActiveTab = tabSaucesValue;
+    }
+    if (!isVisibleBuns && !isVisibleSauces) {
+      newActiveTab = tabFillingsValue;
+    }
+    setCurrent(newActiveTab);
+  }, [isVisibleBuns, isVisibleSauces, isVisibleFillings, setCurrent]);
+
+  const dispatch = useDispatch();
+  const {ingredients, chosenIngredients} = useSelector(store => ({
+    ingredients: store.ingredientsData.ingredients,
+    chosenIngredients: store.chosenIngredients.chosenIngredients,
+  }));
 
   const buns = useMemo(() => {
       return ingredients.filter((element) => {
@@ -25,102 +70,86 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
     });
   }, [ingredients]);
 
-  const classNames = {
-    ingredientsSection: styles.section,
-    title: "text text_type_main-large pt-10 pb-5",
-    subtitle: "text text_type_main-medium pt-10 pb-6 m-0",
-    ingredientsGrid: styles.grid + " pl-4 pr-1",
-    scrollbarContainer: styles.scrollbar__container
-  }
-
   const ingredientsMap = transformArrayToMap({
     array: ingredients,
     keyFunc: ingredient => ingredient._id,
   });
 
-  const chosenIds = Object.keys(counterState);
-
-  const hasBun = chosenIds.some((id) => {
-    return ingredientsMap[id].type === 'bun'
-  });
+  const hasBun = useMemo(() => {
+    chosenIngredients.some((ingredient) => {
+      return ingredientsMap[ingredient._id].type === 'bun'
+    });
+  }, [chosenIngredients, ingredientsMap]);
 
   useEffect(() => {
     if (!hasBun && ingredients.length > 0) {
       const defaultBun = ingredients.find((ingredient) => {
         return ingredient.type === 'bun'
       })
-      const newState = {...counterState};
-      newState[defaultBun._id] = 1;
-      setCounterState(newState);
+      dispatch({
+        type: REPLACE_BUN,
+        ingredient: defaultBun,
+      })
     }
-  }, [hasBun, ingredients, counterState, setCounterState]);
+  }, [dispatch, hasBun, ingredients]);
 
-  function deleteBun(state) {
-    const newState = {};
-    Object.keys(state).forEach(id => {
-      if (ingredientsMap[id].type !== 'bun') {
-        newState[id] = state[id];
-      }
+  function handleIngredientClick(key) {
+    dispatch({
+      type: SET_INGREDIENT,
+      ingredient: ingredientsMap[key]
     })
-    return newState;
   }
 
-  function handleCounterClick(key) {
-    let newState = {...counterState};
-    if (ingredientsMap[key].type === 'bun') {
-      newState = deleteBun(newState);
-    }
-    newState[key] = (newState[key] || 0) + 1;
-    setCounterState(newState);
-  }
+  const bunsCallback = useCallback((value) => handleScroll(refBunsScroll, value), [handleScroll, refBunsScroll]);
+  const saucesCallback = useCallback((value) => handleScroll(refSaucesScroll, value), [handleScroll, refSaucesScroll]);
+  const fillingsCallback = useCallback((value) => handleScroll(refFillingsScroll, value), [handleScroll, refFillingsScroll]);
+
   if (ingredients.length === 0) {
     return (<></>); // TODO: Loader?
   }
 
   return (
-    <section className={classNames.ingredientsSection}>
+    <section className={classNames.ingredientsSection} >
+      <IngredientModal />
       <h2 className={classNames.title}>Соберите бургер</h2>
       <div style={{ display: 'flex' }}>
-        <Tab value="one" active={current === 'булки'} onClick={setCurrent}>
+        <Tab value={tabBunsValue} active={current === tabBunsValue} onClick={bunsCallback}>
           Булки
         </Tab>
-        <Tab value="two" active={current === 'соусы'} onClick={setCurrent}>
+        <Tab value={tabSaucesValue} active={current === tabSaucesValue} onClick={saucesCallback}>
           Соусы
         </Tab>
-        <Tab value="three" active={current === 'начинки'} onClick={setCurrent}>
+        <Tab value={tabFillingsValue} active={current === tabFillingsValue} onClick={fillingsCallback}>
           Начинки
         </Tab>
       </div>
       <div className={classNames.scrollbarContainer}>
-        <h3 key={"buns"} className={classNames.subtitle}>Булки</h3>
-        <div className={classNames.ingredientsGrid}>
+        <h3 key={"buns"} className={classNames.subtitle} ref={refBunsScroll}>Булки</h3>
+        <div className={classNames.ingredientsGrid} ref={refBuns}>
         { buns.map(bun =>
           <IngredientComponent
             ingredient={bun}
-            counterState={counterState}
-            handleCounterClick={handleCounterClick}
+            handleIngredientClick={handleIngredientClick}
             key={bun._id}
           />)
         }
         </div>
-        <h3 key={"sauces"} className={classNames.subtitle}>Соусы</h3>
-        <div className={classNames.ingredientsGrid}>
+        <h3 key={"sauces"} className={classNames.subtitle} ref={refSaucesScroll}>Соусы</h3>
+        <div className={classNames.ingredientsGrid} ref={refSauces}>
         { sauces.map(sauce =>
           <IngredientComponent
             ingredient={sauce}
-            counterState={counterState}
-            handleCounterClick={handleCounterClick}
+            handleIngredientClick={handleIngredientClick}
             key={sauce._id}
           />)
         }
         </div>
-        <h3 key={"fillings"} className={classNames.subtitle}>Начинки</h3>
-        <div className={classNames.ingredientsGrid}>
+        <h3 key={"fillings"} className={classNames.subtitle} ref={refFillingsScroll}>Начинки</h3>
+        <div className={classNames.ingredientsGrid} ref={refFillings}>
         { fillings.map((filling) =>
           <IngredientComponent
             ingredient={filling}
-            counterState={counterState}
-            handleCounterClick={handleCounterClick}
+            handleIngredientClick={handleIngredientClick}
             key={filling._id}
           />)
         }
@@ -130,8 +159,8 @@ export default function BurgerIngredients({ ingredients, counterState, setCounte
   );
 }
 
-BurgerIngredients.propTypes = {
+/*BurgerIngredients.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
   counterState: PropTypes.objectOf(PropTypes.number).isRequired,
   setCounterState: PropTypes.func.isRequired
-}
+}*/

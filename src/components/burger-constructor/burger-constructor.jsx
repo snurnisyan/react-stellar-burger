@@ -1,54 +1,73 @@
-import React from "react";
-import PropTypes from 'prop-types';
+import React, {useMemo} from "react";
 import styles from "../burger-constructor/burger-constructor.module.css";
-import { CurrencyIcon, DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import {ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderButton from "../order-button/order-button";
-import { ingredientPropType } from "../../utils/prop-types";
-import {transformArrayToMap} from "../../utils/utils";
+import {useDispatch, useSelector} from "react-redux";
+import {useDrop} from "react-dnd";
+import {ADD_INGREDIENT, REPLACE_BUN} from "../../services/actions/burger-constructor";
+import DraggableConstructorElement from "../draggable-constructor-element/draggable-constructor-element";
+import {v4 as uuidv4} from 'uuid';
 
-export default function BurgerConstructor({ ingredients, ingredientsCounters }) {
+
+export default function BurgerConstructor() {
   const classNames = {
     constructorSection: styles.section + " pt-25 pl-4 pr-2",
     bunElement: "ml-8 mb-4 mr-2",
+    priceContainer: styles.price__container,
+    scrollbarContainer: styles.scrollbar__container,
     constructorElement: styles.constructor__element + " ml-1",
     dragContainer: styles.drag__container + " mb-4 pr-2",
-    priceContainer: styles.price__container,
-    scrollbarContainer: styles.scrollbar__container
   }
-  const chosenIds = Object.keys(ingredientsCounters);
+  const {chosenIngredients} = useSelector(store => ({
+    chosenIngredients: store.chosenIngredients.chosenIngredients,
+  }));
+  const dispatch = useDispatch();
 
-  const ingredientsMap = transformArrayToMap({
-    array: ingredients,
-    keyFunc: ingredient => ingredient._id,
+  const [, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(ingredient) {
+      if (ingredient.type === 'bun') {
+        dispatch({
+          type: REPLACE_BUN,
+          ingredient: ingredient
+        })
+        return;
+      }
+      dispatch({
+        type: ADD_INGREDIENT,
+        ingredient: {...ingredient, uuid: uuidv4()}
+      })
+    },
   });
 
-  const chosenIngredients = [];
 
-  chosenIds.forEach(id => {
-    const ingredientCounter = ingredientsCounters[id];
-    for (let i = 0; i < ingredientCounter; i++) {
-      chosenIngredients.push(ingredientsMap[id]);
-    }
-  });
+  const totalPrice = useMemo(() => {
+    return chosenIngredients.reduce((total, ingredient) => {
+      if (ingredient.type === "bun") {
+        total = total + (ingredient.price * 2);
+      } else {
+        total = total + ingredient.price;
+      }
+      return total;
+    }, 0);
+  },[chosenIngredients]);
 
-  const totalPrice = chosenIngredients.reduce(function(total, ingredient) {
-    total = total + ingredient.price;
-    return total;
-  }, 0);
+  const bun = useMemo(() => {
+    return chosenIngredients.find((element) => {
+      return element.type === "bun";
+    });
+  }, [chosenIngredients]);
 
-  const bun = chosenIngredients.find((element) => {
-    return element.type === "bun";
-  });
-
-  const fillings = chosenIngredients.filter((element) => {
-    return element.type !== "bun";
-  });
-
+  const fillings = useMemo(() => {
+    return chosenIngredients.filter((element) => {
+      return element.type !== "bun";
+    });
+  }, [chosenIngredients]);
 
   return (
     <section className={classNames.constructorSection}>
       { (chosenIngredients.length > 0) && (
-        <div>
+        <div ref={dropTarget}>
           <ConstructorElement
             extraClass={classNames.bunElement}
             type="top"
@@ -58,18 +77,9 @@ export default function BurgerConstructor({ ingredients, ingredientsCounters }) 
             thumbnail={bun.image_mobile}
           />
           <div className={classNames.scrollbarContainer}>
-            { fillings.map((filling, index) => {
-            return (
-              <div className={classNames.dragContainer} key={index}>
-                <DragIcon type="primary"/>
-                <ConstructorElement
-                  extraClass={classNames.constructorElement}
-                  text={filling.name}
-                  price={filling.price}
-                  thumbnail={filling.image_mobile}
-                />
-              </div>
-              )})
+            { fillings.map((filling, index) => (
+               <DraggableConstructorElement filling={filling} key={filling.uuid} hoverIndex={index} />
+              ))
             }
           </div>
           <ConstructorElement
@@ -88,9 +98,4 @@ export default function BurgerConstructor({ ingredients, ingredientsCounters }) 
       </div>
     </section>
   )
-}
-
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
-  ingredientsCounters: PropTypes.objectOf(PropTypes.number).isRequired,
 }

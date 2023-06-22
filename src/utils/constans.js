@@ -1,5 +1,8 @@
-const urlName = 'https://norma.nomoreparties.space/api/ingredients';
-
+const urlName = 'https://norma.nomoreparties.space/api';
 const modalRoot = document.getElementById("modal-root");
 
-export { urlName, modalRoot }
+const tabBunsValue = 'buns';
+const tabSaucesValue = 'sauces';
+const tabFillingsValue = 'fillings';
+
+export { urlName, modalRoot, tabBunsValue, tabSaucesValue, tabFillingsValue }

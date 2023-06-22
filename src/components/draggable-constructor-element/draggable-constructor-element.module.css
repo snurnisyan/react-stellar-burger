@@ -1,0 +1,12 @@
+.drag__container {
+  display: flex;
+  align-items: center;
+}
+
+.constructor__element {
+  width: 536px;
+}
+
+.icon {
+  cursor: move;
+}

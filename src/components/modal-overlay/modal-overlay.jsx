@@ -1,18 +1,15 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../modal-overlay/modal-overlay.module.css";
 import PropTypes from "prop-types";
 
 export default function ModalOverlay({ opened, onModalClose, children }) {
+  const [className, setClassName] = useState(`${styles.overlay}`);
 
-  let className = '';
-
-  const setClassName = () => {
+  const createClassName = () => {
     if (!opened) {
-      className = styles.overlay;
-      return className;
+      return `${styles.overlay}`;
     } else {
-      className = `${styles.overlay} ${styles.overlay_opened}`;
-      return className;
+      return `${styles.overlay} ${styles.overlay_opened}`;
     }
   }
 
@@ -23,6 +20,7 @@ export default function ModalOverlay({ opened, onModalClose, children }) {
   }
 
   useEffect(() => {
+    setClassName(createClassName());
     document.addEventListener('keydown', closeByEsc);
     return () => {
       document.removeEventListener('keydown', closeByEsc);
@@ -42,7 +40,7 @@ export default function ModalOverlay({ opened, onModalClose, children }) {
 
 
   return (
-    <div className={setClassName()} onClick={closeFromOutside}>
+    <div className={className} onClick={closeFromOutside}>
       {children}
     </div>
   )

@@ -5,22 +5,20 @@
   box-sizing: border-box;
 }
 
-.drag__container {
-  display: flex;
-  align-items: center;
-
-}
-
-.constructor__element {
-  width: 536px;
-
-}
-
 .price__container {
   display: flex;
   justify-content: flex-end;
   padding-top: 30px;
   align-items: center;
+}
+
+.drag__container {
+  display: flex;
+  align-items: center;
+}
+
+.constructor__element {
+  width: 536px;
 }
 
 .scrollbar__container {
