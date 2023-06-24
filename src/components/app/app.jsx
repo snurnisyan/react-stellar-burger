@@ -20,9 +20,9 @@ export default function App() {
   }, [dispatch]);
 
   if (error) {
-    return <p>Произошла ошибка при получении данных</p>
+    return <p className={"text text_type_main-medium"}>Произошла ошибка при получении данных</p>
   } else if (loading) {
-    return <p>Загрузка...</p>
+    return <p className={"text text_type_main-medium"}>Загрузка...</p>
   } else {
     return (
       <>

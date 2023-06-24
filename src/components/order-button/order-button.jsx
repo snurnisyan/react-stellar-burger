@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {postData} from "../../services/actions/order-details";
 
 
-export default function OrderButton() {
+export default function OrderButton({enabled}) {
 
   const [ isOpened, setIsOpened] = useState(false);
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ export default function OrderButton() {
 
   return (
     <>
-      <Button htmlType="button" type="primary" size="medium" extraClass="ml-10" onClick={openModal}>
+      <Button htmlType="button" type="primary" size="medium" extraClass="ml-10" onClick={openModal} disabled={!enabled}>
         Оформить заказ
       </Button>
       <OrderDetails opened={isOpened} onModalClose={closeModal}/>

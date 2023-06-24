@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import {ingredientPropType} from "../../utils/prop-types";
 import styles from "../ingredient-component/ingredient-component.module.css";
 import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
+import {checkElementPresence} from "../../utils/utils";
 
 export default function IngredientComponent({ ingredient, handleIngredientClick }) {
 
@@ -21,9 +22,19 @@ export default function IngredientComponent({ ingredient, handleIngredientClick 
     chosenIngredients: store.chosenIngredients.chosenIngredients,
   }));
 
+  const hasBun = useMemo(() =>
+      checkElementPresence(chosenIngredients, 'bun'),
+    [chosenIngredients]);
+
   const [, dragRef] = useDrag({
     type: "ingredient",
-    item: ingredient
+    item: ingredient,
+    canDrag() {
+      if (ingredient.type === 'bun') {
+        return true;
+      }
+      return hasBun;
+    }
   });
 
   const chosenIds = [];
@@ -34,9 +45,12 @@ export default function IngredientComponent({ ingredient, handleIngredientClick 
 
   const filteredIds = chosenIds.filter(id => ingredient._id === id);
 
-
   return (
-    <div className={classNames.ingredientContainer} onClick={() => { handleIngredientClick(ingredient._id) }} ref={dragRef}>
+    <div className={classNames.ingredientContainer}
+         onClick={() => { handleIngredientClick(ingredient._id) }}
+         ref={dragRef}
+         style={{opacity: (!hasBun && ingredient.type !== 'bun') ? .3 : 1}}
+    >
       <div className={classNames.imageContainer}>
         <img className={classNames.image} src={ingredient.image} alt={ingredient.name} />
         { (filteredIds.length > 0) &&

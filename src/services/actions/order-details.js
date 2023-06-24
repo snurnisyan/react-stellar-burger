@@ -1,4 +1,6 @@
 import {urlName} from "../../utils/constans";
+import {checkResponse} from "../../utils/utils";
+import {CLEAR_CONSTRUCTOR} from "./burger-constructor";
 
 export const ORDER_SUCCESS = 'ORDER_SUCCESS';
 export const ORDER_LOADING = 'ORDER_LOADING';
@@ -22,17 +24,14 @@ export function postData(ingredientIds) {
       type: ORDER_LOADING
     })
     postFetch(ingredientIds)
-      .then(res => {
-        if (res && res.ok) {
-          return res.json();
-        } else {
-          throw new Error(`Ошибка: ${res.status}`);
-        }
-      })
+      .then(checkResponse)
       .then(resJson => {
         dispatch({
           type: ORDER_SUCCESS,
           payload: resJson.order
+        })
+        dispatch({
+          type: CLEAR_CONSTRUCTOR
         })
       })
       .catch(err => {

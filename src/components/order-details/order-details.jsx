@@ -15,17 +15,20 @@ export default function OrderDetails({ opened, onModalClose }) {
     orderText: "text text_type_main-default",
     orderTextPurple: "text text_type_main-default text_color_inactive pt-2 pb-15"
   }
-  const {order, error} = useSelector(store => ({
+  const {order, error, loading} = useSelector(store => ({
     order: store.orderDetails.order,
-    error: store.orderDetails.error
+    error: store.orderDetails.error,
+    loading: store.orderDetails.loading
   }));
 
   return (
     <Modal opened={opened} onModalClose={onModalClose}>
       <div className={classNames.orderContainer}>
-        {error ? (
-          <h3 className={classNames.orderTextId}>Произошла ошибка при оформлении заказа :(</h3>
-        ) : (
+        {loading ? (
+          <h3 className={classNames.orderTextId}>Пожалуйста, подождите, заказ загружается</h3>
+        ) : ( error ? (
+            <h3 className={classNames.orderTextId}>Произошла ошибка при оформлении заказа :(</h3>
+          ) : (
           <>
             <p className={classNames.orderNumber}>{order.number}</p>
             <h3 className={classNames.orderTextId}>идентификатор заказа</h3>
@@ -33,7 +36,7 @@ export default function OrderDetails({ opened, onModalClose }) {
             <p className={classNames.orderText}>Ваш заказ начали готовить</p>
             <p className={classNames.orderTextPurple}>Дождитесь готовности на орбитальной станции</p>
           </>
-        )}
+        ))}
       </div>
     </Modal>
   )

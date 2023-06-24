@@ -1,4 +1,4 @@
-import {ADD_INGREDIENT, DELETE_INGREDIENT, REPLACE_BUN, UPDATE_ORDER} from "../actions/burger-constructor";
+import {ADD_INGREDIENT, DELETE_INGREDIENT, REPLACE_BUN, UPDATE_ORDER, CLEAR_CONSTRUCTOR} from "../actions/burger-constructor";
 
 const initialState = {
   chosenIngredients: []
@@ -42,6 +42,12 @@ export const chosenIngredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         chosenIngredients: [...moveItem(state.chosenIngredients, action.dragIndex, action.hoverIndex)]
+      }
+    }
+    case CLEAR_CONSTRUCTOR: {
+      return {
+        ...state,
+        chosenIngredients: []
       }
     }
     default: {

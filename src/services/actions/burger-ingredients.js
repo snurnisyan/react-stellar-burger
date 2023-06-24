@@ -1,4 +1,6 @@
 import {urlName} from "../../utils/constans";
+import {checkResponse} from "../../utils/utils";
+
 
 export const DATA_SUCCESS = 'DATA_SUCCESS';
 export const DATA_LOADING = 'DATA_LOADING';
@@ -10,13 +12,7 @@ export function getData() {
       type: DATA_LOADING
     })
     fetch(`${urlName}/ingredients`)
-      .then(res => {
-        if (res && res.ok) {
-          return res.json();
-        } else {
-          throw new Error(`Ошибка: ${res.status} - ${res.statusText}`);
-        }
-      })
+      .then(checkResponse)
       .then(resJson => {
         dispatch({
           type: DATA_SUCCESS,

@@ -43,3 +43,20 @@
   background-color: #8585AD;
 }
 
+.message {
+  min-height: 20vh;
+  background-color: #2F2F37;
+  opacity: .5;
+  border-radius: 40px;
+  width: 600px;
+}
+
+.message_hover {
+  composes: message;
+  background-color: #8585AD;
+}
+
+.message__header {
+  text-align: center;
+}
+

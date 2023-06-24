@@ -13,6 +13,8 @@ export const orderDetailsReducer = (state = initialState, action) => {
       return {
         ...state,
         order: action.payload,
+        loading: false,
+        error: false
       }
     }
     case ORDER_LOADING: {
