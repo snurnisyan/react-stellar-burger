@@ -5,22 +5,20 @@
   box-sizing: border-box;
 }
 
-.drag__container {
-  display: flex;
-  align-items: center;
-
-}
-
-.constructor__element {
-  width: 536px;
-
-}
-
 .price__container {
   display: flex;
   justify-content: flex-end;
   padding-top: 30px;
   align-items: center;
+}
+
+.drag__container {
+  display: flex;
+  align-items: center;
+}
+
+.constructor__element {
+  width: 536px;
 }
 
 .scrollbar__container {
@@ -43,5 +41,22 @@
 
 .scrollbar__container::-webkit-scrollbar-thumb {
   background-color: #8585AD;
+}
+
+.message {
+  min-height: 20vh;
+  background-color: #2F2F37;
+  opacity: .5;
+  border-radius: 40px;
+  width: 600px;
+}
+
+.message_hover {
+  composes: message;
+  background-color: #8585AD;
+}
+
+.message__header {
+  text-align: center;
 }
 

@@ -1,15 +1,19 @@
 import React from "react";
 import styles from "../ingredient-details/ingredient-details.module.css";
-import {ingredientPropType} from "../../utils/prop-types";
+import {useSelector} from "react-redux";
 
-export default function IngredientDetails({ ingredient }) {
+export default function IngredientDetails() {
   const classNames = {
     ingredientContainer: styles.ingredient,
     ingredientTitle: "text text_type_main-medium pt-4 pb-8",
     nutrientsContainer: styles.nutrients__container,
     nutrientsText: styles.nutrients__text + " text text_type_main-default text_color_inactive"
   }
-  console.log(ingredient);
+
+  const {ingredient} = useSelector(store => ({
+    ingredient: store.ingredientDetails.ingredient
+  }));
+
   return (
     <div className={classNames.ingredientContainer}>
       <img src={ingredient.image_large} alt={ingredient.name}/>
@@ -36,6 +40,6 @@ export default function IngredientDetails({ ingredient }) {
   )
 }
 
-IngredientDetails.propTypes = {
+/*IngredientDetails.propTypes = {
   ingredient: ingredientPropType.isRequired
-}
+}*/

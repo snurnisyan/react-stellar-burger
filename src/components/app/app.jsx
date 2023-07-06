@@ -1,37 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect} from 'react';
 import styles from "./app.module.css";
 import AppHeader from './../app-header/app-header';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import {urlName} from "../../utils/constans";
-
-
+import {useDispatch, useSelector} from 'react-redux';
+import {getData} from "../../services/actions/burger-ingredients";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 export default function App() {
-  const [data, setData] = useState({ ingredients: [] });
-  const [counterState, setCounterState] = useState({});
+  const { loading, error } = useSelector(store => ({
+    loading: store.ingredientsData.loading,
+    error: store.ingredientsData.error
+  }));
+  const dispatch = useDispatch();
 
-  useEffect (() => {
-    const getApp = async() => {
-      const res = await fetch (`${urlName}`);
-      if (res.ok) {
-        const resJson = await res.json();
-        setData({ ingredients: resJson.data });
-      } else {
-        throw new Error(`Ошибка: ${res.status} - ${res.statusText}`);
-      }
-    }
-    getApp()
-      .catch(console.error);
-  }, []);
+  useEffect(() => {
+    dispatch(getData())
+  }, [dispatch]);
 
-  return (
-    <>
-      <AppHeader />
-      <main className={styles.main}>
-        <BurgerIngredients ingredients={data.ingredients} counterState={counterState} setCounterState={setCounterState}/>
-        <BurgerConstructor ingredients={data.ingredients} ingredientsCounters={counterState}/>
-      </main>
-    </>
-  );
+  if (error) {
+    return <p className={"text text_type_main-medium"}>Произошла ошибка при получении данных</p>
+  } else if (loading) {
+    return <p className={"text text_type_main-medium"}>Загрузка...</p>
+  } else {
+    return (
+      <>
+        <AppHeader/>
+        <main className={styles.main}>
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </DndProvider>
+        </main>
+      </>
+    );
+  }
 }

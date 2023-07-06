@@ -3,6 +3,7 @@ import styles from "../order-details/order-details.module.css";
 import Modal from "../modal/modal";
 import orderConfirmSvg from '../../images/order-confirm.svg'
 import PropTypes from "prop-types";
+import {useSelector} from "react-redux";
 
 export default function OrderDetails({ opened, onModalClose }) {
 
@@ -14,21 +15,35 @@ export default function OrderDetails({ opened, onModalClose }) {
     orderText: "text text_type_main-default",
     orderTextPurple: "text text_type_main-default text_color_inactive pt-2 pb-15"
   }
+  const {order, error, loading} = useSelector(store => ({
+    order: store.orderDetails.order,
+    error: store.orderDetails.error,
+    loading: store.orderDetails.loading
+  }));
 
   return (
     <Modal opened={opened} onModalClose={onModalClose}>
       <div className={classNames.orderContainer}>
-        <p className={classNames.orderNumber}>034536</p>
-        <h3 className={classNames.orderTextId}>идентификатор заказа</h3>
-        <img className={classNames.orderImg} src={orderConfirmSvg} alt='заказ подтвержден'/>
-        <p className={classNames.orderText}>Ваш заказ начали готовить</p>
-        <p className={classNames.orderTextPurple}>Дождитесь готовности на орбитальной станции</p>
+        {loading ? (
+          <h3 className={classNames.orderTextId}>Пожалуйста, подождите, заказ загружается</h3>
+        ) : ( error ? (
+            <h3 className={classNames.orderTextId}>Произошла ошибка при оформлении заказа :(</h3>
+          ) : (
+          <>
+            <p className={classNames.orderNumber}>{order.number}</p>
+            <h3 className={classNames.orderTextId}>идентификатор заказа</h3>
+            <img className={classNames.orderImg} src={orderConfirmSvg} alt='заказ подтвержден'/>
+            <p className={classNames.orderText}>Ваш заказ начали готовить</p>
+            <p className={classNames.orderTextPurple}>Дождитесь готовности на орбитальной станции</p>
+          </>
+        ))}
       </div>
     </Modal>
   )
 }
 
 OrderDetails.propTypes = {
+  opened: PropTypes.bool.isRequired,
   header: PropTypes.string,
   onModalClose: PropTypes.func.isRequired
 }

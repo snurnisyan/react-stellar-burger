@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import styles from "../modal/modal.module.css";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
@@ -33,6 +33,7 @@ export default function Modal({ opened, header, children, onModalClose}) {
 }
 
 Modal.propTypes = {
+  opened: PropTypes.bool.isRequired,
   header: PropTypes.string,
   children: PropTypes.element.isRequired,
   onModalClose: PropTypes.func.isRequired
