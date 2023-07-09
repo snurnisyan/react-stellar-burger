@@ -15,7 +15,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-
 }
 
 .element {
@@ -29,4 +28,8 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.element_active {
+  color: white;
 }

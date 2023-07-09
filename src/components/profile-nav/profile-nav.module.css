@@ -1,0 +1,26 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+  padding-top: 120px;
+}
+
+.nav__element {
+  text-decoration: none;
+}
+
+.nav__element_active {
+  color: white;
+}
+
+.nav__text {
+  opacity: .5;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.link:active {
+  color: white;
+}

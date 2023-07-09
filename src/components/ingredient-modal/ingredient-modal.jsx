@@ -11,13 +11,11 @@ export default function IngredientModal() {
   }));
 
   const opened = Object.keys(ingredient).length > 0;
-
   function onModalClose() {
     dispatch({
       type: REMOVE_INGREDIENT
     })
   }
-
 
   return (
     <Modal opened={opened} onModalClose={onModalClose} header={'Детали ингредиента'}>

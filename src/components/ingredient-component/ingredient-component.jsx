@@ -6,6 +6,7 @@ import styles from "../ingredient-component/ingredient-component.module.css";
 import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {checkElementPresence} from "../../utils/utils";
+import {Link, useLocation} from 'react-router-dom';
 
 export default function IngredientComponent({ ingredient, handleIngredientClick }) {
 
@@ -21,7 +22,7 @@ export default function IngredientComponent({ ingredient, handleIngredientClick 
   const {chosenIngredients} = useSelector(store => ({
     chosenIngredients: store.chosenIngredients.chosenIngredients,
   }));
-
+  const location = useLocation();
   const hasBun = useMemo(() =>
       checkElementPresence(chosenIngredients, 'bun'),
     [chosenIngredients]);
@@ -51,6 +52,7 @@ export default function IngredientComponent({ ingredient, handleIngredientClick 
          ref={dragRef}
          style={{opacity: (!hasBun && ingredient.type !== 'bun') ? .3 : 1}}
     >
+      <Link to={`/ingredients/${ingredient._id}`} state={{ background: location }} style={{ textDecoration: 'none', color: 'white'}}>
       <div className={classNames.imageContainer}>
         <img className={classNames.image} src={ingredient.image} alt={ingredient.name} />
         { (filteredIds.length > 0) &&
@@ -62,6 +64,7 @@ export default function IngredientComponent({ ingredient, handleIngredientClick 
         <CurrencyIcon type="primary" />
       </div>
       <p className={classNames.description}>{ingredient.name}</p>
+      </Link>
     </div>
   )
 }

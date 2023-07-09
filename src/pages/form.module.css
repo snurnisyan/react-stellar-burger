@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 120px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.text {
+  text-align: center;
+}
+
+.button {
+  align-self: center;
+}
+
+.link {
+  padding: 0 0 0 10px;
+}
+
+.section {
+  display: flex;
+  margin: auto;
+  justify-content: flex-start;
+  max-width: 1280px;
+}

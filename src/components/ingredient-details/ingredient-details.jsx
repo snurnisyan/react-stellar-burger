@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../ingredient-details/ingredient-details.module.css";
 import {useSelector} from "react-redux";
+import {useLocation, useParams} from "react-router-dom";
 
 export default function IngredientDetails() {
   const classNames = {
@@ -9,10 +10,28 @@ export default function IngredientDetails() {
     nutrientsContainer: styles.nutrients__container,
     nutrientsText: styles.nutrients__text + " text text_type_main-default text_color_inactive"
   }
-
-  const {ingredient} = useSelector(store => ({
-    ingredient: store.ingredientDetails.ingredient
+  const { id } = useParams();
+  const location = useLocation();
+  const {ingredients, selectedIngredient} = useSelector(store => ({
+    ingredients: store.ingredientsData.ingredients,
+    selectedIngredient: store.ingredientDetails.ingredient
   }));
+
+  const [ingredient, setIngredient] = useState({});
+  useEffect(() => {
+    if (ingredients.length === 0) {
+      return;
+    }
+    if (!location?.state?.background && id) {
+      setIngredient(ingredients.find(({ _id }) => _id === id));
+    } else {
+      setIngredient(selectedIngredient);
+    }
+  }, [id, ingredients, location, selectedIngredient]);
+
+  if (ingredients.length === 0 || Object.keys(ingredient).length === 0) {
+    return (<p className={"text text_type_main-medium"}>Загрузка...</p>);
+  }
 
   return (
     <div className={classNames.ingredientContainer}>
