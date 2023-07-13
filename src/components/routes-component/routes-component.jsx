@@ -13,14 +13,11 @@ import React from "react";
 
 export default function RoutesComponent() {
   const location = useLocation();
+  const backgroundLocation = location?.state?.background;
   return (
     <>
-      <Routes location={location?.state?.background || location}>
-        {location?.state?.background ? (
-          <Route path="/ingredients/:id" element={<IngredientModal />} />
-        ) : (
-          <Route path="/ingredients/:id" element={<IngredientDetails />} />
-        )}
+      <Routes location={backgroundLocation || location}>
+        <Route path="/ingredients/:id" element={<IngredientDetails />} />
         <Route path="/" element={<HomePage/>} />
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/register" element={<RegisterPage/>} />
@@ -30,6 +27,11 @@ export default function RoutesComponent() {
         <Route path="/profile/orders" element={<ProtectedRouteElement element={<></>} redirect={"/login"} />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
+      {backgroundLocation && (
+        <Routes>
+          <Route path="/ingredients/:id" element={<IngredientModal />} />
+        </Routes>
+      )}
     </>
   )
 }

@@ -28,6 +28,7 @@ export default function OrderButton({enabled}) {
 
   const closeModal = () => {
     setIsOpened(false);
+    navigate('/');
   }
 
   return (

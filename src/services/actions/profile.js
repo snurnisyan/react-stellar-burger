@@ -7,7 +7,6 @@ export const USER_SUCCESS = "USER_SUCCESS";
 export const USER_ERROR = "USER_ERROR";
 
 export function getUserApi() {
-  console.log('getUserApi');
   const token = getCookie('token');
   return fetch(`${urlName}/auth/user`, {
     method: 'GET',
@@ -43,7 +42,6 @@ export function getUser() {
       .then(checkResponse)
       .then(resJson => {
         if (resJson.success) {
-          console.log('getUser success');
           dispatch({
             type: USER_SUCCESS,
             user: resJson.user
@@ -55,7 +53,6 @@ export function getUser() {
       .catch(err => {
         console.error(err);
         if (err.name === 'ForbiddenError') {
-          console.log('if ForbiddenError');
           dispatch(postTokenUpdate()).then(() => dispatch(getUser()));
           return;
         }
@@ -76,7 +73,6 @@ export function patchUser({ email, name, password }) {
       .then(checkResponse)
       .then(resJson => {
         if (resJson.success) {
-          console.log(`resJson: ${JSON.stringify(resJson)}`);
           dispatch({
             type: USER_SUCCESS,
             user: resJson.user

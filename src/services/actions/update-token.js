@@ -19,7 +19,6 @@ export function postFetch() {
 
 export function postTokenUpdate() {
   return function (dispatch) {
-    console.log('postTokenUpdate');
     dispatch({
       type: TOKEN_UPDATE_LOADING
     })
@@ -27,7 +26,6 @@ export function postTokenUpdate() {
       .then(checkResponse)
       .then(resJson => {
         if (resJson.success) {
-          console.log('postTokenUpdate success');
           dispatch({
             type: TOKEN_UPDATE_SUCCESS,
             accessToken: resJson.accessToken,

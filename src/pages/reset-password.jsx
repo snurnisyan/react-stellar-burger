@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './form.module.css';
-import {Navigate, useNavigate} from 'react-router-dom';
+import {Navigate, useLocation, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {postPasswordReset} from "../services/actions/reset-password";
 import {isUserAuthorized} from "../utils/utils";
@@ -24,6 +24,8 @@ export default function ResetPasswordPage() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+
 
   const {success, user} = useSelector(store => ({
     success: store.resetPassword.success,
@@ -48,6 +50,12 @@ export default function ResetPasswordPage() {
   if (isUserAuthorized(user)) {
     return (
       <Navigate to="/" replace />
+    );
+  }
+
+  if (location.state !== 'previousPageVisited') {
+    return (
+      <Navigate to="/forgot-password" replace />
     );
   }
 

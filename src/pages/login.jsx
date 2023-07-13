@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './form.module.css';
-import {Navigate, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {postLogin} from "../services/actions/login";
 import {isUserAuthorized} from "../utils/utils";
@@ -34,7 +34,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (isUserAuthorized(user)) {
-      navigate('/');
+      navigate(-1);
     }
   }, [user, navigate, accessToken, refreshToken]);
 
@@ -42,6 +42,7 @@ export default function LoginPage() {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(postLogin(form.email, form.password));
+    navigate(-1);
   };
 
   const onRegisterClick = () => {
@@ -50,12 +51,6 @@ export default function LoginPage() {
   const onForgotPasswordClick = () => {
     navigate('/forgot-password');
   };
-
-  if (isUserAuthorized(user)) {
-    return (
-      <Navigate to="/" replace />
-    );
-  }
 
   return (
     <div className={classNames.wrapper}>

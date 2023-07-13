@@ -32,7 +32,7 @@ export default function ForgotPasswordPage() {
 
   useEffect(() => {
     if (success) {
-      navigate('/reset-password');
+      navigate('/reset-password', { state: 'previousPageVisited' });
     }
   }, [success, navigate])
   const onSubmit = (e) => {

@@ -66,4 +66,12 @@ export function setTokens(accessToken, refreshToken) {
   setCookie('token', authToken);
   setCookie('refreshToken', refreshToken);
 }
+
+export const isEmpty = (obj) => {
+  if (!obj) {
+    return true;
+  }
+  return Object.keys(obj).length === 0;
+}
+
 export const isUserAuthorized = (user) => Object.keys(user).length > 0;

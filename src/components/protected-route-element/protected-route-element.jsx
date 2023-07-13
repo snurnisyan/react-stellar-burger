@@ -9,7 +9,7 @@ export const ProtectedRouteElement = ({ element, redirect }) => {
     user: store.authData.user
   }));
 
-  return isUserAuthorized(user) ? element : <Navigate to={redirect} replace/>;
+  return isUserAuthorized(user) ? element : <Navigate to={redirect}/>;
 }
 
 ProtectedRouteElement.propTypes = {
