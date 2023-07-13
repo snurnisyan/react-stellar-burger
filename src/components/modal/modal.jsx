@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import {modalRoot} from "../../utils/constans";
 import ModalOverlay from "../modal-overlay/modal-overlay";
-/*import { CSSTransition } from 'react-transition-group';*/
 
 
 export default function Modal({ opened, header, children, onModalClose}) {

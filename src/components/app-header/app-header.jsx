@@ -1,5 +1,6 @@
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./app-header.module.css";
+import {Link, NavLink} from "react-router-dom";
 
 
 export default function AppHeader() {
@@ -7,30 +8,47 @@ export default function AppHeader() {
     header: styles.header,
     headerContainer: styles.header__container + " pb-4 pt-4",
     nav: styles.nav,
-    navElement: styles.element + " text text_type_main-default pl-5 pr-5 pt-4 pb-4",
-    navElementInactive: " text_color_inactive",
+    navElement: styles.element + " text text_type_main-default text_color_inactive pl-5 pr-5 pt-4 pb-4",
+    navElementActive: styles.element_active,
     logo: styles.logo + " pt-4 pb-4"
   }
   return (
     <header className={classNames.header}>
       <div className={classNames.logo}>
-        <Logo />
+        <Link to='/'>
+          <Logo />
+        </Link>
       </div>
       <div className={classNames.headerContainer}>
         <nav className={classNames.nav}>
-          <a href="#" className={classNames.navElement + " mr-2"} style={{color: 'white'}}>
+          <NavLink
+            to='/'
+            className={({isActive}) =>
+              classNames.navElement + " mr-2 " + (isActive ? classNames.navElementActive : "")
+            }
+          >
             <BurgerIcon type="primary" />
             Конструктор
-          </a>
-          <a href="#" className={classNames.navElement + classNames.navElementInactive}>
+          </NavLink>
+          <NavLink
+            to='/'
+            className={({isActive}) =>
+              classNames.navElement + " " + (isActive ? classNames.navElementActive : "")
+            }
+          >
             <ListIcon type="secondary" />
             Лента заказов
-          </a>
+          </NavLink>
         </nav>
-        <a href="#" className={classNames.navElement + classNames.navElementInactive}>
+        <NavLink
+          to='/profile'
+          className={({isActive}) =>
+            classNames.navElement + " " + (isActive ? classNames.navElementActive : "")
+          }
+        >
           <ProfileIcon type="secondary" />
           Личный кабинет
-        </a>
+        </NavLink>
       </div>
     </header>
   );

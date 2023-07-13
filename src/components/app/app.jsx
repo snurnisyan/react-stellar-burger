@@ -1,39 +1,39 @@
-import React, {useEffect} from 'react';
-import styles from "./app.module.css";
+import React, {useEffect, useState} from 'react';
 import AppHeader from './../app-header/app-header';
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import {useDispatch, useSelector} from 'react-redux';
+import {BrowserRouter} from 'react-router-dom';
+import {getUser} from "../../services/actions/profile";
+import {useDispatch} from "react-redux";
+import {getCookie} from "../../utils/utils";
 import {getData} from "../../services/actions/burger-ingredients";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
+import RoutesComponent from "../routes-component/routes-component";
 
 export default function App() {
-  const { loading, error } = useSelector(store => ({
-    loading: store.ingredientsData.loading,
-    error: store.ingredientsData.error
-  }));
+  const [isUserLoaded, setUserLoaded] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getData())
-  }, [dispatch]);
+  const init = async () => {
+    if (getCookie('token')) {
+      await dispatch(getUser());
+    }
+    setUserLoaded(true);
+  };
 
-  if (error) {
-    return <p className={"text text_type_main-medium"}>Произошла ошибка при получении данных</p>
-  } else if (loading) {
-    return <p className={"text text_type_main-medium"}>Загрузка...</p>
-  } else {
-    return (
-      <>
+  useEffect(() => {
+    init();
+    dispatch(getData());
+  }, []);
+
+  return (
+    <>
+      <BrowserRouter>
         <AppHeader/>
-        <main className={styles.main}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        </main>
-      </>
-    );
-  }
+        { !isUserLoaded ? (
+          <p className={"text text_type_main-medium"}>Загрузка...</p>
+        ) : (
+          <RoutesComponent />
+          )
+        }
+      </BrowserRouter>
+    </>
+  );
 }

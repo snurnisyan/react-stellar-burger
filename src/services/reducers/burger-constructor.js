@@ -1,4 +1,10 @@
-import {ADD_INGREDIENT, DELETE_INGREDIENT, REPLACE_BUN, UPDATE_ORDER, CLEAR_CONSTRUCTOR} from "../actions/burger-constructor";
+import {
+  ADD_INGREDIENT,
+  CLEAR_CONSTRUCTOR,
+  DELETE_INGREDIENT,
+  REPLACE_BUN,
+  UPDATE_ORDER
+} from "../actions/burger-constructor";
 
 const initialState = {
   chosenIngredients: []
