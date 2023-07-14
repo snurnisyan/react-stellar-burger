@@ -1,13 +1,18 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import styles from "../order-details/order-details.module.css";
 import Modal from "../modal/modal";
 import orderConfirmSvg from '../../images/order-confirm.svg'
 import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
+import {IClassNames, IOrder} from "../../utils/types";
 
-export default function OrderDetails({ opened, onModalClose }) {
+type TOrderDetailsProps = {
+  opened: boolean;
+  onModalClose: () => void;
+}
+export default function OrderDetails({ opened, onModalClose }: TOrderDetailsProps): ReactElement {
 
-  const classNames = {
+  const classNames: IClassNames = {
     orderContainer: styles.order,
     orderNumber: styles.order__number + " text text_type_digits-large pt-4 pb-8",
     orderTextId: "text text_type_main-medium",
@@ -15,7 +20,7 @@ export default function OrderDetails({ opened, onModalClose }) {
     orderText: "text text_type_main-default",
     orderTextPurple: "text text_type_main-default text_color_inactive pt-2 pb-15"
   }
-  const {order, error, loading} = useSelector(store => ({
+  const {order, error, loading}: {order: IOrder, error: boolean, loading: boolean} = useSelector((store: any) => ({
     order: store.orderDetails.order,
     error: store.orderDetails.error,
     loading: store.orderDetails.loading

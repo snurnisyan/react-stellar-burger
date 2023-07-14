@@ -1,19 +1,25 @@
-import React from "react";
+import React, {MouseEvent, ReactElement} from "react";
 import styles from "../modal/modal.module.css";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import {modalRoot} from "../../utils/constans";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 
+type TModalProps = {
+  opened: boolean;
+  header?: string;
+  children: ReactElement;
+  onModalClose: () => void;
+}
 
-export default function Modal({ opened, header, children, onModalClose}) {
-  const onClose = (evt) => {
+export default function Modal({ opened, header, children, onModalClose}: TModalProps): ReactElement | null {
+  const onClose = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.stopPropagation();
     onModalClose();
   }
 
   if (!opened) return null;
+  if (modalRoot === null) return null;
 
   return ReactDOM.createPortal(
     (
@@ -29,11 +35,4 @@ export default function Modal({ opened, header, children, onModalClose}) {
         </div>
       </ModalOverlay>
   ), modalRoot)
-}
-
-Modal.propTypes = {
-  opened: PropTypes.bool.isRequired,
-  header: PropTypes.string,
-  children: PropTypes.element.isRequired,
-  onModalClose: PropTypes.func.isRequired
 }

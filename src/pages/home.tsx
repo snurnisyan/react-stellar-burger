@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactElement} from 'react';
 import BurgerIngredients from "../components/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../components/burger-constructor/burger-constructor";
 import {DndProvider} from "react-dnd";
@@ -7,9 +7,9 @@ import styles from "./home.module.css";
 import {useSelector} from "react-redux";
 
 
-export default function HomePage() {
+export default function HomePage(): ReactElement {
 
-  const { loading, error } = useSelector(store => ({
+  const { loading, error }: { loading: boolean, error: boolean } = useSelector((store: any) => ({
     loading: store.ingredientsData.loading,
     error: store.ingredientsData.error
   }));

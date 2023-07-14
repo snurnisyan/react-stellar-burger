@@ -1,23 +1,25 @@
-import React, {useRef} from "react";
+import React, {ReactElement, useRef} from "react";
 import styles from "./draggable-constructor-element.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {DELETE_INGREDIENT, UPDATE_ORDER} from "../../services/actions/burger-constructor";
 import {useDispatch} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
-import {ingredientPropType} from "../../utils/prop-types";
-import PropTypes from "prop-types";
+import {IClassNames, IIngredient} from "../../utils/types";
 
-
-export default function DraggableConstructorElement({filling, hoverIndex}) {
-  const classNames = {
+interface IDraggableElementProps {
+  filling: IIngredient;
+  hoverIndex: number;
+}
+export default function DraggableConstructorElement({filling, hoverIndex}: IDraggableElementProps): ReactElement {
+  const classNames: IClassNames = {
     constructorElement: styles.constructor__element + " ml-1",
     dragContainer: styles.drag__container + " mb-4 pr-2",
     icon: styles.icon
   }
   const dispatch = useDispatch();
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
-  const deleteIngredient = (ingredient) => {
+  const deleteIngredient = (ingredient: IIngredient) => {
     dispatch({
       type: DELETE_INGREDIENT,
       ingredient: ingredient
@@ -26,17 +28,17 @@ export default function DraggableConstructorElement({filling, hoverIndex}) {
 
   const [, dropFillingTarget] = useDrop({
     accept: "filling",
-    hover(filling, monitor) {
+    hover(filling: IIngredient, monitor) {
       if (!ref.current) {
         return;
       }
       const dragIndex = filling.index;
-      if (dragIndex === hoverIndex) {
+      if (dragIndex === undefined || dragIndex === hoverIndex) {
         return;
       }
       const hoverBoundingRect = ref.current.getBoundingClientRect();
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      const clientOffset = monitor.getClientOffset();
+      const clientOffset = monitor.getClientOffset() || {y: 0};
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -77,9 +79,4 @@ export default function DraggableConstructorElement({filling, hoverIndex}) {
       />
     </div>
   )
-}
-
-DraggableConstructorElement.propTypes = {
-  filling: ingredientPropType.isRequired,
-  hoverIndex: PropTypes.number.isRequired
 }

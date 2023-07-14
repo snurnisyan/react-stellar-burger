@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {ReactElement} from 'react';
 import styles from './not-found.module.css';
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useNavigate} from "react-router-dom";
 import image from "../images/not-found.png";
+import {IClassNames} from "../utils/types";
 
-export default function NotFound404() {
-  const classNames = {
+export default function NotFound404(): ReactElement {
+  const classNames: IClassNames = {
     container: styles.container,
     header: "text text_type_main-large pb-5",
     text: "text text_type_main-medium text_color_inactive pb-5",
@@ -15,7 +16,7 @@ export default function NotFound404() {
 
   const navigate = useNavigate();
 
-  const onClick = () => {
+  const onClick = (): void => {
     navigate('/');
   };
 

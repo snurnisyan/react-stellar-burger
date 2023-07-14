@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import styles from "../ingredient-details/ingredient-details.module.css";
 import {useSelector} from "react-redux";
 import {useLocation, useParams} from "react-router-dom";
+import {IClassNames, IIngredient, TIngredients} from "../../utils/types";
 
-export default function IngredientDetails() {
-  const classNames = {
+export default function IngredientDetails(): ReactElement {
+  const classNames: IClassNames = {
     ingredientContainer: styles.ingredient,
     ingredientTitle: "text text_type_main-medium pt-4 pb-8",
     nutrientsContainer: styles.nutrients__container,
@@ -12,18 +13,21 @@ export default function IngredientDetails() {
   }
   const { id } = useParams();
   const location = useLocation();
-  const {ingredients, selectedIngredient} = useSelector(store => ({
+  const {ingredients, selectedIngredient}: {ingredients: TIngredients, selectedIngredient: IIngredient} = useSelector((store: any) => ({
     ingredients: store.ingredientsData.ingredients,
     selectedIngredient: store.ingredientDetails.ingredient
   }));
 
-  const [ingredient, setIngredient] = useState({});
+  const [ingredient, setIngredient] = useState<IIngredient>({} as IIngredient);
   useEffect(() => {
     if (ingredients.length === 0) {
       return;
     }
     if (!location?.state?.background && id) {
-      setIngredient(ingredients.find(({ _id }) => _id === id));
+      const found = ingredients.find(({ _id }) => _id === id);
+      if (found) {
+        setIngredient(found);
+      }
     } else {
       setIngredient(selectedIngredient);
     }
@@ -58,7 +62,3 @@ export default function IngredientDetails() {
     </div>
   )
 }
-
-/*IngredientDetails.propTypes = {
-  ingredient: ingredientPropType.isRequired
-}*/

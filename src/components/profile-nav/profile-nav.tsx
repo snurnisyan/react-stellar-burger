@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {ReactElement} from 'react';
 import styles from './profile-nav.module.css';
 import {NavLink} from 'react-router-dom';
 import {postLogout} from "../../services/actions/logout";
 import {useDispatch} from "react-redux";
+import {IClassNames} from "../../utils/types";
 
-export default function ProfileNav() {
-  const classNames = {
+export default function ProfileNav(): ReactElement {
+  const classNames: IClassNames = {
     nav: styles.nav + ' pr-15 pl-5',
     navElement: styles.nav__element + " text text_type_main-medium text_color_inactive pt-4 pb-4",
     navElementActive: styles.nav__element_active,
@@ -15,7 +16,7 @@ export default function ProfileNav() {
 
   const dispatch = useDispatch();
 
-  const onLogoutClick = () => {
+  const onLogoutClick = (): void => {
     dispatch(postLogout());
   }
 

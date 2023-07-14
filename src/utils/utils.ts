@@ -1,17 +1,14 @@
-export function transformArrayToMap({array, keyFunc}) {
-  const mapped = {};
-  array.forEach((item) => {
-    mapped[keyFunc(item)] = item;
-  });
-  return mapped;
-}
-export function ForbiddenError(message = "") {
-  this.name = "ForbiddenError";
-  this.message = message;
-}
-ForbiddenError.prototype = Error.prototype;
+import {IUser, TIngredients} from "./types";
 
-export function checkResponse(res) {
+
+export class ForbiddenError extends Error {
+  constructor(msg?: string) {
+    super(msg);
+    Object.setPrototypeOf(this, ForbiddenError.prototype);
+  }
+}
+
+export function checkResponse(res: Response) {
   if (res && res.ok) {
     return res.json();
   } else if (res.status === 403) {
@@ -21,20 +18,20 @@ export function checkResponse(res) {
   }
 }
 
-export function checkElementPresence(array, type) {
+export function checkElementPresence(array: TIngredients, type: string) {
   return array.some((item) => {
     return item.type === type
   });
 }
 
-export function getCookie(name) {
+export function getCookie(name: string) {
   const matches = document.cookie.match(
     new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
   );
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name, value, props) {
+export function setCookie(name: string, value: string | null, props?: any) {
   props = props || {};
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
@@ -45,7 +42,9 @@ export function setCookie(name, value, props) {
   if (exp && exp.toUTCString) {
     props.expires = exp.toUTCString();
   }
-  value = encodeURIComponent(value);
+  if (typeof value === 'string') {
+    value = encodeURIComponent(value);
+  }
   let updatedCookie = name + '=' + value;
   for (const propName in props) {
     updatedCookie += '; ' + propName;
@@ -57,21 +56,21 @@ export function setCookie(name, value, props) {
   document.cookie = updatedCookie;
 }
 
-export function deleteCookie(name) {
+export function deleteCookie(name: string) {
   setCookie(name, null, { expires: -1 });
 }
 
-export function setTokens(accessToken, refreshToken) {
+export function setTokens(accessToken: string, refreshToken: string) {
   let authToken = accessToken.split(' ')[1];
   setCookie('token', authToken);
   setCookie('refreshToken', refreshToken);
 }
 
-export const isEmpty = (obj) => {
+export const isEmpty = (obj: Object | undefined) => {
   if (!obj) {
     return true;
   }
   return Object.keys(obj).length === 0;
 }
 
-export const isUserAuthorized = (user) => Object.keys(user).length > 0;
+export const isUserAuthorized = (user: IUser) => Object.keys(user).length > 0;

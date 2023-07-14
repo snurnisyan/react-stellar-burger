@@ -1,16 +1,20 @@
 import React, {useMemo} from "react";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import {ingredientPropType} from "../../utils/prop-types";
 import styles from "../ingredient-component/ingredient-component.module.css";
 import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {checkElementPresence} from "../../utils/utils";
 import {Link, useLocation} from 'react-router-dom';
+import {IClassNames, IIngredient} from "../../utils/types";
 
-export default function IngredientComponent({ ingredient, handleIngredientClick }) {
+type TIngredientComponentProps = {
+  ingredient: IIngredient;
+  handleIngredientClick: (key: string) => void ;
+}
 
-  const classNames = {
+export default function IngredientComponent({ ingredient, handleIngredientClick }: TIngredientComponentProps) {
+
+  const classNames: IClassNames = {
     imageContainer: styles.image__container,
     ingredientContainer: styles.ingredient__container + " pb-8",
     priceContainer: styles.price + " mt-1 mb-1",
@@ -19,7 +23,7 @@ export default function IngredientComponent({ ingredient, handleIngredientClick 
     image: "pr-4 pl-4",
   }
 
-  const {chosenIngredients} = useSelector(store => ({
+  const {chosenIngredients}: {chosenIngredients: IIngredient[]} = useSelector((store: any) => ({
     chosenIngredients: store.chosenIngredients.chosenIngredients,
   }));
   const location = useLocation();
@@ -38,9 +42,9 @@ export default function IngredientComponent({ ingredient, handleIngredientClick 
     }
   });
 
-  const chosenIds = [];
+  const chosenIds: Array<string> = [];
 
-  chosenIngredients.map(ingredient => {
+  chosenIngredients.map((ingredient: IIngredient) => {
     return chosenIds.push(ingredient._id);
   })
 
@@ -67,9 +71,4 @@ export default function IngredientComponent({ ingredient, handleIngredientClick 
       </Link>
     </div>
   )
-}
-
-IngredientComponent.propTypes = {
-  ingredient: ingredientPropType.isRequired,
-  handleIngredientClick: PropTypes.func.isRequired
 }

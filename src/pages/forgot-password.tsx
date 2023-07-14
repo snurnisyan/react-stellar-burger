@@ -1,13 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from 'react';
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './form.module.css';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {postEmailCheck} from "../services/actions/forgot-password";
 import {useDispatch, useSelector} from "react-redux";
 import {isUserAuthorized} from "../utils/utils";
+import {IClassNames, IUser} from "../utils/types";
 
-export default function ForgotPasswordPage() {
-  const classNames = {
+interface IFormValue {
+  email: string;
+}
+export default function ForgotPasswordPage(): ReactElement {
+  const classNames: IClassNames = {
     wrapper: styles.wrapper,
     header: styles.text + ' text text_type_main-medium pb-6',
     form: styles.form,
@@ -17,15 +21,15 @@ export default function ForgotPasswordPage() {
     link: styles.link
   }
 
-  const [form, setValue] = useState({ email: '' });
-  const onChange = e => {
+  const [form, setValue] = useState<IFormValue>({ email: '' });
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const {success, user} = useSelector(store => ({
+  const {success, user}: {success: boolean, user: IUser} = useSelector((store: any) => ({
     success: store.forgotPassword.success,
     user: store.authData.user
   }));
@@ -35,12 +39,12 @@ export default function ForgotPasswordPage() {
       navigate('/reset-password', { state: 'previousPageVisited' });
     }
   }, [success, navigate])
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     dispatch(postEmailCheck(form.email));
   };
 
-  const onLoginClick = () => {
+  const onLoginClick = (): void => {
     navigate('/login');
   };
 

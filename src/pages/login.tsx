@@ -1,13 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from 'react';
+import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './form.module.css';
-import {Navigate, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
-import {postRegister} from "../services/actions/register";
+import {postLogin} from "../services/actions/login";
 import {isUserAuthorized} from "../utils/utils";
+import {IClassNames, IUser} from "../utils/types";
 
-export default function RegisterPage() {
-  const classNames = {
+interface IFormValue {
+  email: string;
+  password: string;
+}
+
+export default function LoginPage(): ReactElement {
+  const classNames: IClassNames = {
     wrapper: styles.wrapper,
     header: styles.text + ' text text_type_main-medium pb-6',
     form: styles.form,
@@ -17,14 +23,16 @@ export default function RegisterPage() {
     link: styles.link
   }
 
-  const [form, setValue] = useState({ name: '', email: '', password: '' });
-  const onChange = e => {
+  const [form, setValue] = useState<IFormValue>({ email: '', password: '' });
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {accessToken, refreshToken, user} = useSelector(store => ({
+
+  const {accessToken, refreshToken, user}: {accessToken: string, refreshToken: string, user: IUser} = useSelector((store: any) => ({
     accessToken: store.authData.accessToken,
     refreshToken: store.authData.refreshToken,
     user: store.authData.user
@@ -32,39 +40,28 @@ export default function RegisterPage() {
 
   useEffect(() => {
     if (isUserAuthorized(user)) {
-      navigate('/');
+      navigate(-1);
     }
   }, [user, navigate, accessToken, refreshToken]);
-  const onSubmit = (e) => {
+
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    dispatch(postRegister(form.email, form.password, form.name));
+    dispatch(postLogin(form.email, form.password));
+    navigate(-1);
   };
 
-  const onLoginClick = () => {
-    navigate('/login');
+  const onRegisterClick = (): void => {
+    navigate('/register');
   };
-
-  if (isUserAuthorized(user)) {
-    return (
-      <Navigate to="/" replace />
-    );
-  }
+  const onForgotPasswordClick = (): void => {
+    navigate('/forgot-password');
+  };
 
   return (
     <div className={classNames.wrapper}>
       <form className={classNames.form} onSubmit={onSubmit}>
-        <h2 className={classNames.header}>Регистрация</h2>
-        <Input
-          type={'text'}
-          placeholder={'Имя'}
-          onChange={onChange}
-          value={form.name}
-          name={'name'}
-          error={false}
-          errorText={'Ошибка'}
-          size={'default'}
-          extraClass={classNames.input}
-        />
+        <h2 className={classNames.header}>Вход</h2>
         <EmailInput
           onChange={onChange}
           value={form.email}
@@ -85,18 +82,29 @@ export default function RegisterPage() {
           size="medium"
           extraClass={classNames.button}
         >
-          Зарегистрироваться
+          Войти
         </Button>
       </form>
-      <p className={classNames.text + ' pb-4'}>Уже зарегистрированы?
+      <p className={classNames.text + ' pb-4'}>Вы - новый пользователь?
         <Button
           htmlType="button"
           type="secondary"
           size="medium"
           extraClass={classNames.link}
-          onClick={onLoginClick}
+          onClick={onRegisterClick}
         >
-          Войти
+          Зарегистрироваться
+        </Button>
+      </p>
+      <p className={classNames.text}>Забыли пароль?
+        <Button
+          htmlType="button"
+          type="secondary"
+          size="medium"
+          extraClass={classNames.link}
+          onClick={onForgotPasswordClick}
+        >
+          Восстановить пароль
         </Button>
       </p>
     </div>

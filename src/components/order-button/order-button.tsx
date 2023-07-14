@@ -1,22 +1,22 @@
-import React, {useState} from "react";
+import React, {ReactElement, useState} from "react";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../order-details/order-details";
 import {useDispatch, useSelector} from "react-redux";
 import {postData} from "../../services/actions/order-details";
 import {useNavigate} from "react-router-dom";
+import {IIngredient, IUser, TIngredients} from "../../utils/types";
 
+export default function OrderButton({enabled}: {enabled: boolean}): ReactElement {
 
-export default function OrderButton({enabled}) {
-
-  const [isOpened, setIsOpened] = useState(false);
+  const [isOpened, setIsOpened] = useState<boolean>(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {chosenIngredients, user} = useSelector(store => ({
+  const {chosenIngredients, user}: {chosenIngredients: TIngredients, user: IUser} = useSelector((store: any) => ({
     chosenIngredients: store.chosenIngredients.chosenIngredients,
     user: store.authData.user
   }));
 
-  const chosenIds = chosenIngredients.map(ingredient => ingredient._id);
+  const chosenIds = chosenIngredients.map((ingredient: IIngredient) => ingredient._id);
   const openModal = () => {
     if (Object.keys(user).length > 0) {
       setIsOpened(true);
