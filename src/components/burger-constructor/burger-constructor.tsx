@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, {ReactElement, useMemo} from "react";
 import styles from "../burger-constructor/burger-constructor.module.css";
 import {ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderButton from "../order-button/order-button";
@@ -7,11 +7,11 @@ import {useDrop} from "react-dnd";
 import {ADD_INGREDIENT, REPLACE_BUN} from "../../services/actions/burger-constructor";
 import DraggableConstructorElement from "../draggable-constructor-element/draggable-constructor-element";
 import {v4 as uuidv4} from 'uuid';
-import {checkElementPresence} from "../../utils/utils";
+import {IClassNames, IIngredient} from "../../utils/types";
 
 
-export default function BurgerConstructor() {
-  const classNames = {
+export default function BurgerConstructor(): ReactElement {
+  const classNames: IClassNames = {
     constructorSection: styles.section + " pt-25 pl-4 pr-2",
     bunElement: "ml-8 mb-4 mr-2",
     priceContainer: styles.price__container,
@@ -20,14 +20,14 @@ export default function BurgerConstructor() {
     dragContainer: styles.drag__container + " mb-4 pr-2",
     messageHeader: styles.message__header + " text text_type_main-medium text_color_inactive pb-4"
   }
-  const {chosenIngredients} = useSelector(store => ({
+  const { chosenIngredients }: {chosenIngredients: IIngredient[]} = useSelector((store: any) => ({
     chosenIngredients: store.chosenIngredients.chosenIngredients
   }));
   const dispatch = useDispatch();
 
   const [{isHover}, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(ingredient) {
+    drop(ingredient: IIngredient) {
       if (ingredient.type === 'bun') {
         dispatch({
           type: REPLACE_BUN,
@@ -46,7 +46,7 @@ export default function BurgerConstructor() {
   });
 
   const totalPrice = useMemo(() => {
-    return chosenIngredients.reduce((total, ingredient) => {
+    return chosenIngredients.reduce((total: number, ingredient: IIngredient) => {
       if (ingredient.type === "bun") {
         total = total + (ingredient.price * 2);
       } else {
@@ -57,27 +57,25 @@ export default function BurgerConstructor() {
   }, [chosenIngredients]);
 
   const bun = useMemo(() => {
-    return chosenIngredients.find((element) => {
+    return chosenIngredients.find((element: IIngredient) => {
       return element.type === "bun";
     });
   }, [chosenIngredients]);
 
   const fillings = useMemo(() => {
-    return chosenIngredients.filter((element) => {
+    return chosenIngredients.filter((element: IIngredient) => {
       return element.type !== "bun";
     });
   }, [chosenIngredients]);
 
-  const hasBun = useMemo(() =>
-    checkElementPresence(chosenIngredients, 'bun'),
-    [chosenIngredients]);
+  const hasBun = bun !== undefined;
 
-  const messageClass = isHover ? styles.message_hover : styles.message;
+  const messageClass: string = isHover ? styles.message_hover : styles.message;
 
   return (
     <section className={classNames.constructorSection}>
         <div ref={dropTarget}>
-          {(chosenIngredients.length > 0 && hasBun) ? (
+          {hasBun ? (
             <>
               <ConstructorElement
                 extraClass={classNames.bunElement}
@@ -88,7 +86,7 @@ export default function BurgerConstructor() {
                 thumbnail={bun.image_mobile}
               />
               <div className={classNames.scrollbarContainer}>
-                {fillings.map((filling, index) => (
+                {fillings.map((filling: IIngredient, index: number) => (
                   <DraggableConstructorElement filling={filling} key={filling.uuid} hoverIndex={index}/>
                 ))
                 }

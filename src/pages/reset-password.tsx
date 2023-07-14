@@ -1,13 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from 'react';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './form.module.css';
 import {Navigate, useLocation, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {postPasswordReset} from "../services/actions/reset-password";
 import {isUserAuthorized} from "../utils/utils";
+import {IClassNames, IUser} from "../utils/types";
 
-export default function ResetPasswordPage() {
-  const classNames = {
+interface IFormValue {
+  password: string;
+  securityCode: string;
+}
+
+export default function ResetPasswordPage(): ReactElement {
+  const classNames: IClassNames = {
     wrapper: styles.wrapper,
     header: styles.text + ' text text_type_main-medium pb-6',
     form: styles.form,
@@ -17,8 +23,8 @@ export default function ResetPasswordPage() {
     link: styles.link
   }
 
-  const [form, setValue] = useState({ password: '', securityCode: '' });
-  const onChange = e => {
+  const [form, setValue] = useState<IFormValue>({ password: '', securityCode: '' });
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -27,12 +33,12 @@ export default function ResetPasswordPage() {
   const location = useLocation();
 
 
-  const {success, user} = useSelector(store => ({
+  const {success, user}: {success: boolean, user: IUser} = useSelector((store: any) => ({
     success: store.resetPassword.success,
     user: store.authData.user
   }));
 
-  const onLoginClick = () => {
+  const onLoginClick = (): void => {
     navigate('/login');
   };
 
@@ -42,7 +48,7 @@ export default function ResetPasswordPage() {
     }
   }, [success, navigate]);
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     dispatch(postPasswordReset(form.password, form.securityCode));
   }

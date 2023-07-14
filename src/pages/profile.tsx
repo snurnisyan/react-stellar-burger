@@ -1,12 +1,19 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {ChangeEvent, FormEvent, ReactElement, RefObject, useEffect, useRef, useState} from 'react';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './form.module.css';
 import ProfileNav from "../components/profile-nav/profile-nav";
 import {useDispatch, useSelector} from "react-redux";
 import {patchUser} from "../services/actions/profile";
+import {IClassNames, IUser} from "../utils/types";
 
-export default function ProfilePage() {
-  const classNames = {
+interface IFormValue {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export default function ProfilePage(): ReactElement {
+  const classNames: IClassNames = {
     wrapper: styles.wrapper,
     header: styles.text + ' text text_type_main-medium pb-6',
     form: styles.form,
@@ -17,38 +24,37 @@ export default function ProfilePage() {
     section: styles.section,
   }
 
-  const [form, setValue] = useState({ name: '', email: '', password: '' });
+  const [form, setValue] = useState<IFormValue>({ name: '', email: '', password: '' });
 
   const dispatch = useDispatch();
 
-  const {user, password} = useSelector(store => ({
-    user: store.authData.user,
-    password: store.authData.user.password
+  const {user}: {user: IUser} = useSelector((store: any) => ({
+    user: store.authData.user
   }));
 
   useEffect(() => {
-    setValue({ name: user.name || '', email: user.email || '', password: password || '' });
-  }, [user, password]);
+    setValue({ name: user.name || '', email: user.email || '', password: user.password || '' });
+  }, [user]);
 
-  const nameRef = useRef(null);
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-  const onSubmit = (e) => {
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    dispatch(patchUser({ email: form.email, name: form.name, password }));
+    dispatch(patchUser({ email: form.email, name: form.name, password: form.password }));
   };
-  const onIconClick = (ref) => {
-    setTimeout(() => ref.current.focus(), 0);
+  const onIconClick = (ref: RefObject<HTMLInputElement>): void => {
+    setTimeout(() => ref.current?.focus(), 0);
   }
 
-  const [initialState, setInitialState] = useState({});
-  const [isChanged, setIsChanged] = useState(false);
+  const [initialState, setInitialState] = useState<IFormValue>({} as IFormValue);
+  const [isChanged, setIsChanged] = useState<boolean>(false);
   useEffect(() => {
     if (Object.values(initialState).every((value) => !value)) {
       setInitialState({...form});
     }
   }, [form]);
-  const onChange = e => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const newForm = {...form, [e.target.name]: e.target.value };
     setValue(newForm);
     if (!(newForm.email === initialState.email && newForm.name === initialState.name && newForm.password === initialState.password)) {

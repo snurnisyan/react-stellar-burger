@@ -9,9 +9,9 @@ import ResetPasswordPage from "../../pages/reset-password";
 import {ProtectedRouteElement} from "../protected-route-element/protected-route-element";
 import ProfilePage from "../../pages/profile";
 import NotFound404 from "../../pages/not-found";
-import React from "react";
+import React, {ReactElement} from "react";
 
-export default function RoutesComponent() {
+export default function RoutesComponent(): ReactElement {
   const location = useLocation();
   const backgroundLocation = location?.state?.background;
   return (
