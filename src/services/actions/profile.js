@@ -52,7 +52,7 @@ export function getUser() {
       })
       .catch(err => {
         console.error(err);
-        if (err.name === 'ForbiddenError') {
+        if (err instanceof ForbiddenError) {
           dispatch(postTokenUpdate()).then(() => dispatch(getUser()));
           return;
         }
@@ -83,7 +83,7 @@ export function patchUser({ email, name, password }) {
       })
       .catch(err => {
         console.error(err);
-        if (err.name === 'ForbiddenError') {
+        if (err instanceof ForbiddenError) {
           dispatch(postTokenUpdate()).then(() => patchUserApi({ email, name, password }));
           return;
         }

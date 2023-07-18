@@ -3,18 +3,19 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
-import {applyMiddleware, compose, legacy_createStore as createStore} from 'redux';
+import {applyMiddleware, legacy_createStore as createStore} from 'redux';
 import {Provider} from 'react-redux';
-import {rootReducer} from './services/reducers/index';
+import {rootReducer} from './services/reducers';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 
-const composeEnhancers =
+/*const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-    : compose;
+    : compose;*/
 
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const enhancer = composeWithDevTools(applyMiddleware(thunk));
 export const store = createStore(rootReducer, enhancer);
 
 

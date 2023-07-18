@@ -1,9 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {MouseEvent, ReactElement, useEffect, useState} from "react";
 import styles from "../modal-overlay/modal-overlay.module.css";
-import PropTypes from "prop-types";
 
-export default function ModalOverlay({ opened, onModalClose, children }) {
-  const [className, setClassName] = useState(`${styles.overlay}`);
+type TModalProps = {
+  opened: boolean;
+  onModalClose: () => void;
+  children: ReactElement;
+}
+
+export default function ModalOverlay({ opened, onModalClose, children }: TModalProps): ReactElement {
+  const [className, setClassName] = useState<string>(`${styles.overlay}`);
 
   const createClassName = () => {
     if (!opened) {
@@ -13,7 +18,7 @@ export default function ModalOverlay({ opened, onModalClose, children }) {
     }
   }
 
-  function closeByEsc(evt) {
+  function closeByEsc(evt: KeyboardEvent) {
     if (evt.key === 'Escape') {
       onModalClose();
     }
@@ -27,13 +32,14 @@ export default function ModalOverlay({ opened, onModalClose, children }) {
     }
   }, []);
 
-  function closeFromOutside(evt) {
-    if (evt.target.classList.contains(styles.overlay)) {
+  function closeFromOutside(evt: MouseEvent<HTMLElement>) {
+    const classList = (evt.target as Element).classList;
+    if (classList.contains(styles.overlay)) {
       onClose(evt);
     }
   }
 
-  const onClose = (evt) => {
+  const onClose = (evt: MouseEvent<HTMLElement>) => {
     evt.stopPropagation();
     onModalClose();
   }
@@ -44,10 +50,4 @@ export default function ModalOverlay({ opened, onModalClose, children }) {
       {children}
     </div>
   )
-}
-
-ModalOverlay.propTypes = {
-  opened: PropTypes.bool.isRequired,
-  children: PropTypes.element.isRequired,
-  onModalClose: PropTypes.func.isRequired
 }

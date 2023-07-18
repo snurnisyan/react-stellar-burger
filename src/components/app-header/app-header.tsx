@@ -1,10 +1,13 @@
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./app-header.module.css";
 import {Link, NavLink} from "react-router-dom";
+import React, {ReactElement} from 'react';
+import {IClassNames} from "../../utils/types";
 
 
-export default function AppHeader() {
-  const classNames = {
+export default function AppHeader(): ReactElement {
+
+  const classNames: IClassNames = {
     header: styles.header,
     headerContainer: styles.header__container + " pb-4 pt-4",
     nav: styles.nav,
