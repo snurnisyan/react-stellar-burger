@@ -17,7 +17,8 @@ import OrderInfoModal from "../order-info-modal/order-info-modal";
 import {useSelector} from "../../services/hooks/useSelector";
 import {
   WS_AUTH_CONNECTION_CLOSED,
-  WS_AUTH_CONNECTION_START, WS_CONNECTION_CLOSED,
+  WS_AUTH_CONNECTION_START,
+  WS_CONNECTION_CLOSED,
   WS_CONNECTION_START
 } from "../../services/actions/wsActions";
 
@@ -61,12 +62,12 @@ export default function RoutesComponent(): ReactElement {
           <Route path="/ingredients/:id" element={<IngredientModal />} />
         </Routes>
       )}
-      {(location?.state?.orderBackground.pathname === '/feed')  && (
+      {(location?.state?.orderBackground?.pathname === '/feed')  && (
         <Routes>
           <Route path="/feed/:id" element={<OrderInfoModal orders={orders}/>} />
         </Routes>
       )}
-      {(location?.state?.orderBackground.pathname === '/profile/orders') && (
+      {(location?.state?.orderBackground?.pathname === '/profile/orders') && (
         <Routes>
           <Route path="/profile/orders/:id" element={<OrderInfoModal orders={userOrders}/>} />
         </Routes>

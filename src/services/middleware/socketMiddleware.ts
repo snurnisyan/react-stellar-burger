@@ -1,24 +1,19 @@
-import {IWSActions, RootState, TAppActions} from "../types";
+import {IWSActions, RootState} from "../types";
 import type {Middleware, MiddlewareAPI} from 'redux';
 import {Dispatch} from "redux";
-import {getCookie} from "../../utils/utils";
-import {WS_AUTH_CONNECTION_START} from "../actions/wsActions";
+import {TWSActions, TWSAuthActions} from "../actions/wsActions";
 
 export const socketMiddleware = (wsUrl: string, wsActions: IWSActions): Middleware => {
   return (store: MiddlewareAPI<Dispatch, RootState>) => {
     let socket: WebSocket | null = null;
 
-    return next => (action: TAppActions) => {
+    return next => (action: TWSActions | TWSAuthActions) => {
       const {dispatch} = store;
-      const {type} = action;
+      const {type, payload} = action;
       const {wsInit, onOpen, onClose, onError, onMessage} = wsActions;
-      const token = getCookie("token");
       if (type === wsInit) {
-        if (type === WS_AUTH_CONNECTION_START && token) {
-          socket = new WebSocket(`${wsUrl}?token=${token}`);
-        } else {
-          socket = new WebSocket(`${wsUrl}/all`);
-        }
+        socket = new WebSocket(`${wsUrl}${payload}`);
+        console.log(`socketUrl=${wsUrl}${payload}`);
       }
       if (socket) {
         socket.onopen = event => {

@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
@@ -11,7 +10,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import {socketMiddleware} from "./services/middleware/socketMiddleware";
 import {wsActions, wsAuthActions} from "./services/actions/wsActions";
 import {wsUrl} from "./utils/constans";
-import { createRoot } from 'react-dom/client';
+import {createRoot} from 'react-dom/client';
 
 
 /*const composeEnhancers =

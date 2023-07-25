@@ -6,11 +6,10 @@ import {getCookie} from "../../utils/utils";
 import {getData} from "../../services/actions/burger-ingredients";
 import RoutesComponent from "../routes-component/routes-component";
 import {useDispatch} from "../../services/hooks/useDispatch";
-import {AppThunkDispatch} from "../../services/types";
 
 export default function App(): ReactElement {
   const [isUserLoaded, setUserLoaded] = useState<boolean>(false);
-  const dispatch: AppThunkDispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const init = async () => {
     if (getCookie('token')) {

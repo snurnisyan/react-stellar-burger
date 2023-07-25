@@ -2,7 +2,7 @@ import React, {ReactElement, useMemo} from "react";
 import styles from "./scrollable-feed.module.css"
 import {IClassNames, TOrdersMap} from "../../utils/types";
 import OrderCardComponent from "../order-card/order-card";
-import {IIngredient, IWSOrder} from "../../services/types";
+import {IWSOrder} from "../../services/types";
 import {useDispatch} from "../../services/hooks/useDispatch";
 import {SET_ORDER} from "../../services/actions/order-info";
 

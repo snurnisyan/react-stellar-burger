@@ -21,7 +21,7 @@ export default function FeedPage({modalPath}: TFeedPageProps): ReactElement {
   }
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START });
+    dispatch({ type: WS_CONNECTION_START, payload: `/all` });
     return () => {dispatch({ type: WS_CONNECTION_CLOSED })};
   }, [dispatch]);
 

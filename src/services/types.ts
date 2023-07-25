@@ -59,7 +59,6 @@ export type TAppActions = TAuthActions
                   | TOrderInfoActions;
 
 export type AppThunk<ReturnType = void> = ActionCreator<ThunkAction<ReturnType, RootState, Action, TAppActions>>
-
 export type ActionDispatch = Dispatch<TAppActions>;
 export type AppThunkDispatch = ThunkDispatch<RootState, Action, TAppActions>;
 

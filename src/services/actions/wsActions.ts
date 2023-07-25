@@ -13,14 +13,14 @@ export const WS_AUTH_CONNECTION_CLOSED: 'WS_AUTH_CONNECTION_CLOSED' = 'WS_AUTH_C
 export const WS_GET_AUTH_ORDERS: 'WS_GET_AUTH_ORDERS' = 'WS_GET_AUTH_ORDERS';
 
 
-
-
 interface IWSConnectionStartAction {
   readonly type: typeof WS_CONNECTION_START;
+  payload: string;
 }
 
 interface IWSConnectionSuccessAction {
   readonly type: typeof WS_CONNECTION_SUCCESS;
+  payload: string;
 }
 
 interface IWSConnectionErrorAction {
@@ -30,6 +30,7 @@ interface IWSConnectionErrorAction {
 
 interface IWSConnectionClosedAction {
   readonly type: typeof WS_CONNECTION_CLOSED;
+  payload: string;
 }
 
 interface IWSGetOrdersAction {
@@ -39,10 +40,12 @@ interface IWSGetOrdersAction {
 
 interface IWSAuthConnectionStartAction {
   readonly type: typeof WS_AUTH_CONNECTION_START;
+  payload: string;
 }
 
 interface IWSAuthConnectionSuccessAction {
   readonly type: typeof WS_AUTH_CONNECTION_SUCCESS;
+  payload: string;
 }
 
 interface IWSAuthConnectionErrorAction {
@@ -52,6 +55,7 @@ interface IWSAuthConnectionErrorAction {
 
 interface IWSAuthConnectionClosedAction {
   readonly type: typeof WS_AUTH_CONNECTION_CLOSED;
+  payload: string;
 }
 
 interface IWSGetAuthOrdersAction {
