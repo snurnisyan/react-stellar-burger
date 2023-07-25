@@ -3,7 +3,7 @@ import styles from "./order-card.module.css";
 import {IClassNames} from "../../utils/types";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientImageComponent from "../ingredient-image/ingredient-image";
-import {IIngredient, IWSOrder} from "../../services/types";
+import {IWSOrder} from "../../services/types";
 import {useSelector} from "../../services/hooks/useSelector";
 import {Link, useLocation} from "react-router-dom";
 
@@ -35,7 +35,7 @@ export default function OrderCardComponent({status, order, handleOrderClick, mod
 
   const orderedIngredients = useMemo(() => {
     return order.ingredients.map((id: string) => {
-      return ingredients.find((item) => item._id === id);
+      return ingredients.find(item => item._id === id);
     })
   }, [orders]);
 
@@ -48,7 +48,7 @@ export default function OrderCardComponent({status, order, handleOrderClick, mod
   }, [orderedIngredients, displayedIngredients]);
 
   const orderSum = useMemo(() => {
-    return orderedIngredients.reduce((total, ingredient: IIngredient | undefined) => {
+    return orderedIngredients.reduce((total, ingredient) => {
       if (!ingredient) return total;
       return total + ingredient.price;
     }, 0);
@@ -84,7 +84,7 @@ export default function OrderCardComponent({status, order, handleOrderClick, mod
         )}
         <div className={classNames.imageAndPriceContainer}>
           <div className={classNames.imagesContainer}>
-            {displayedIngredients.map((ingredient, index: number) => (
+            {displayedIngredients.map((ingredient, index) => (
               ingredient && <IngredientImageComponent
                 key={index}
                 ingredient={ingredient}

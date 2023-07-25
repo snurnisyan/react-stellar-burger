@@ -9,8 +9,8 @@ import {TOrderDetailsActions} from "./actions/order-details";
 import {TUserActions} from "./actions/profile";
 import {TResetPasswordActions} from "./actions/reset-password";
 import {TTokenUpdateActions} from "./actions/update-token";
-import {Action, ActionCreator, Dispatch} from "redux";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {Action, ActionCreator} from "redux";
+import {ThunkAction} from "redux-thunk";
 import {TWSActions, TWSAuthActions} from "./actions/wsActions";
 import {TOrderInfoActions} from "./actions/order-info";
 
@@ -59,8 +59,7 @@ export type TAppActions = TAuthActions
                   | TOrderInfoActions;
 
 export type AppThunk<ReturnType = void> = ActionCreator<ThunkAction<ReturnType, RootState, Action, TAppActions>>
-export type ActionDispatch = Dispatch<TAppActions>;
-export type AppThunkDispatch = ThunkDispatch<RootState, Action, TAppActions>;
+export type AppDispatch = typeof store.dispatch;
 
 export interface IWSOrder {
   ingredients: Array<string>;

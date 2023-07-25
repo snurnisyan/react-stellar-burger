@@ -21,6 +21,7 @@ import {
   WS_CONNECTION_CLOSED,
   WS_CONNECTION_START
 } from "../../services/actions/wsActions";
+import {getCookie} from "../../utils/utils";
 
 export default function RoutesComponent(): ReactElement {
   const location = useLocation();
@@ -30,15 +31,18 @@ export default function RoutesComponent(): ReactElement {
     orders: store.wsData.orders,
     userOrders: store.wsData.userOrders,
   }));
+  const token = getCookie("token");
 
-  const socketActions = {
+  const socketSettings = {
     open: WS_CONNECTION_START,
-    close: WS_CONNECTION_CLOSED
+    close: WS_CONNECTION_CLOSED,
+    payload: `/all`,
   }
 
-  const socketUserActions = {
+  const socketUserSettings = {
     open: WS_AUTH_CONNECTION_START,
-    close: WS_AUTH_CONNECTION_CLOSED
+    close: WS_AUTH_CONNECTION_CLOSED,
+    payload: `?token=${token}`,
   }
 
   return (
@@ -51,10 +55,10 @@ export default function RoutesComponent(): ReactElement {
         <Route path="/forgot-password" element={<ForgotPasswordPage/>} />
         <Route path="/reset-password" element={<ResetPasswordPage/>} />
         <Route path="/feed" element={<FeedPage modalPath={'/feed'}/>} />
-        <Route path="/feed/:id" element={<OrderInfoComponent orders={orders} socketActions={socketActions}/>} />
+        <Route path="/feed/:id" element={<OrderInfoComponent orders={orders} socketSettings={socketSettings} />} />
         <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage/>} redirect={"/login"} />} />
         <Route path="/profile/orders" element={<ProtectedRouteElement element={<ProfileOrdersPage modalPath={'/profile/orders'} />} redirect={"/login"} />} />
-        <Route path="/profile/orders/:id" element={<ProtectedRouteElement element={<OrderInfoComponent orders={userOrders} socketActions={socketUserActions}/>} redirect={"/login"} />} />
+        <Route path="/profile/orders/:id" element={<ProtectedRouteElement element={<OrderInfoComponent orders={userOrders} socketSettings={socketUserSettings}/>} redirect={"/login"} />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
       {location?.state?.background && (

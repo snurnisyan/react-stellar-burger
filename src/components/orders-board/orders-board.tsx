@@ -20,11 +20,11 @@ export default function OrdersBoardComponent(): ReactElement {
   }));
 
   const ordersInProgress = useMemo(() => {
-    return orders.filter((order) => order.status === 'pending').map((order) => order.number).slice(0, 20);
+    return orders.filter(order => order.status === 'pending').map(order => order.number).slice(0, 20);
   }, [orders]);
 
   const ordersDone = useMemo(() => {
-    return orders.filter((order) => order.status === 'done').map((order) => order.number).slice(0, 20);
+    return orders.filter(order => order.status === 'done').map(order => order.number).slice(0, 20);
   }, [orders]);
 
   return (
@@ -33,7 +33,7 @@ export default function OrdersBoardComponent(): ReactElement {
         <div className={classNames.orderNumbersContainer}>
           <h3 className={classNames.header + " pb-6"}>Готовы:</h3>
           <div className={classNames.statusBoard}>
-            {ordersDone.map((order) =>
+            {ordersDone.map(order =>
               <p className={classNames.orderDigits} style={{color: '#00CCCC'}} key={order}>{order}</p>
             )}
           </div>
@@ -41,7 +41,7 @@ export default function OrdersBoardComponent(): ReactElement {
         <div className={classNames.orderNumbersContainer}>
           <h3 className={classNames.header + " pb-6"}>В работе:</h3>
           <div className={classNames.statusBoard}>
-            {ordersInProgress.map((order) =>
+            {ordersInProgress.map(order =>
               <p className={classNames.orderDigits} key={order}>{order}</p>
             )}
           </div>

@@ -1,5 +1,5 @@
 .scrollbar__container {
-  max-height: 72vh;
+  max-height: 80vh;
   scrollbar-color: #2F2F37 #8585AD;
   scrollbar-width: thin;
   overflow-y: auto;

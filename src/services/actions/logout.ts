@@ -1,6 +1,6 @@
 import {urlName} from "../../utils/constans";
 import {checkResponse, getCookie} from "../../utils/utils";
-import {ActionDispatch, AppThunk} from "../types";
+import {AppThunk} from "../types";
 
 export const LOGOUT_LOADING: "LOGOUT_LOADING" = "LOGOUT_LOADING";
 export const LOGOUT_SUCCESS: "LOGOUT_SUCCESS" = "LOGOUT_SUCCESS";
@@ -35,7 +35,7 @@ export function postFetch() {
 }
 
 export const postLogout: AppThunk = () => {
-  return function (dispatch: ActionDispatch) {
+  return function (dispatch) {
     dispatch({
       type: LOGOUT_LOADING
     })

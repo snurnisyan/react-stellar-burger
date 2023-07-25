@@ -5,19 +5,18 @@ import {postData} from "../../services/actions/order-details";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "../../services/hooks/useDispatch";
 import {useSelector} from "../../services/hooks/useSelector";
-import {AppThunkDispatch, IIngredient} from "../../services/types";
 
 export default function OrderButton({enabled}: {enabled: boolean}): ReactElement {
 
   const [isOpened, setIsOpened] = useState<boolean>(false);
-  const dispatch: AppThunkDispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const {chosenIngredients, user} = useSelector((store) => ({
     chosenIngredients: store.chosenIngredients.chosenIngredients,
     user: store.authData.user
   }));
 
-  const chosenIds = chosenIngredients.map((ingredient: IIngredient) => ingredient._id);
+  const chosenIds = chosenIngredients.map((ingredient) => ingredient._id);
   const openModal = () => {
     if (Object.keys(user).length > 0) {
       setIsOpened(true);

@@ -7,7 +7,6 @@ import {isUserAuthorized} from "../utils/utils";
 import {IClassNames} from "../utils/types";
 import {useDispatch} from "../services/hooks/useDispatch";
 import {useSelector} from "../services/hooks/useSelector";
-import {AppThunkDispatch} from "../services/types";
 
 interface IFormValue {
   email: string;
@@ -32,7 +31,7 @@ export default function LoginPage(): ReactElement {
   };
 
   const navigate = useNavigate();
-  const dispatch: AppThunkDispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const {accessToken, refreshToken, user} = useSelector((store) => ({
     accessToken: store.authData.accessToken,

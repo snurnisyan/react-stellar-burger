@@ -48,7 +48,7 @@ export default function BurgerConstructor(): ReactElement {
   });
 
   const totalPrice = useMemo(() => {
-    return chosenIngredients.reduce((total: number, ingredient: IIngredient) => {
+    return chosenIngredients.reduce((total, ingredient) => {
       if (ingredient.type === "bun") {
         total = total + (ingredient.price * 2);
       } else {
@@ -59,13 +59,13 @@ export default function BurgerConstructor(): ReactElement {
   }, [chosenIngredients]);
 
   const bun = useMemo(() => {
-    return chosenIngredients.find((element: IIngredient) => {
+    return chosenIngredients.find(element => {
       return element.type === "bun";
     });
   }, [chosenIngredients]);
 
   const fillings = useMemo(() => {
-    return chosenIngredients.filter((element: IIngredient) => {
+    return chosenIngredients.filter(element => {
       return element.type !== "bun";
     });
   }, [chosenIngredients]);
@@ -88,7 +88,7 @@ export default function BurgerConstructor(): ReactElement {
                 thumbnail={bun.image_mobile}
               />
               <div className={classNames.scrollbarContainer}>
-                {fillings.map((filling: IIngredient, index: number) => (
+                {fillings.map((filling, index) => (
                   <DraggableConstructorElement filling={filling} key={filling.uuid} hoverIndex={index}/>
                 ))
                 }

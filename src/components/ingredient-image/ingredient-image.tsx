@@ -23,7 +23,6 @@ export default function IngredientImageComponent({ingredient, index, lastElement
     transform: `translateX(-${15 * index}px)`
   }
 
-
   return (
     <div className={classNames.imgWrapper} style={elementStyle}>
       {(lastElement && (counter !== undefined) && (counter > 0)) && (

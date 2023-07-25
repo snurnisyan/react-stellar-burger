@@ -1,7 +1,7 @@
 import {urlName} from "../../utils/constans";
 import {checkResponse, ForbiddenError, getCookie} from "../../utils/utils";
 import {postTokenUpdate} from "./update-token";
-import {AppThunk, AppThunkDispatch, IUser} from "../types";
+import {AppThunk, IUser} from "../types";
 
 export const USER_LOADING: "USER_LOADING" = "USER_LOADING";
 export const USER_SUCCESS: "USER_SUCCESS" = "USER_SUCCESS";
@@ -51,7 +51,7 @@ export function patchUserApi({ email, name, password }: { email: string, name: s
 }
 
 export const getUser: AppThunk<Promise<void>> = () => {
-  return function (dispatch: AppThunkDispatch) {
+  return function (dispatch) {
     dispatch({
       type: USER_LOADING
     })
@@ -82,7 +82,7 @@ export const getUser: AppThunk<Promise<void>> = () => {
 }
 
 export const patchUser: AppThunk = ({ email, name, password }: { email: string, name: string, password: string }) => {
-  return function (dispatch: AppThunkDispatch) {
+  return function (dispatch) {
     dispatch({
       type: USER_LOADING
     })

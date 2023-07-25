@@ -25,7 +25,7 @@ export default function OrderInfoModal({orders}: TOrderInfoModalComponentProps):
   const opened = !orderIsEmpty;
   useEffect(() => {
     if (orderIsEmpty && id) {
-      const foundOrder = orders.find((order: IWSOrder) => order._id === id);
+      const foundOrder = orders.find(order => order._id === id);
       if (!foundOrder || isEmpty(foundOrder)) {
         return;
       }

@@ -53,8 +53,8 @@ export default function OrderComponent({orders}: TOrderComponentProps): ReactEle
   const allIngredientsInOrder: IIngredient[] = useMemo(() => {
     if (!order.ingredients) return [];
     return order.ingredients.map((ingredientId: string) => {
-      return ingredients.find((item: IIngredient) => item._id === ingredientId);
-    }).filter((item: IIngredient | undefined) => item !== undefined) as IIngredient[];
+      return ingredients.find(item => item._id === ingredientId);
+    }).filter((item) => item !== undefined) as IIngredient[];
   }, [order, ingredients]);
 
   const groupedIngredientsInOrder = useMemo(() => {
@@ -74,7 +74,7 @@ export default function OrderComponent({orders}: TOrderComponentProps): ReactEle
   }, [order, allIngredientsInOrder]);
 
   const orderSum = useMemo(() => {
-    return allIngredientsInOrder.reduce((total, ingredient: IIngredient) => {
+    return allIngredientsInOrder.reduce((total, ingredient) => {
       if (!ingredient) return total;
       if (ingredient.type === "bun") {
         total = total + (ingredient.price * 2);

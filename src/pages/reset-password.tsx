@@ -7,7 +7,6 @@ import {isUserAuthorized} from "../utils/utils";
 import {IClassNames} from "../utils/types";
 import {useDispatch} from "../services/hooks/useDispatch";
 import {useSelector} from "../services/hooks/useSelector";
-import {AppThunkDispatch} from "../services/types";
 
 interface IFormValue {
   password: string;
@@ -31,7 +30,7 @@ export default function ResetPasswordPage(): ReactElement {
   };
 
   const navigate = useNavigate();
-  const dispatch: AppThunkDispatch = useDispatch();
+  const dispatch = useDispatch();
   const location = useLocation();
 
   const {success, user} = useSelector((store) => ({

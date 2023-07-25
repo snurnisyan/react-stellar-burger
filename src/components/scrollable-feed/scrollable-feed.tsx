@@ -36,12 +36,12 @@ export default function ScrollableFeedComponent({status, orders, modalPath}: TSc
   }
 
   if (!orders || orders.length === 0) {
-    return (<></>); // TODO: Loader?
+    return <p className={"text text_type_main-medium pt-5"}>Заказы не найдены :(</p>; // TODO: Loader?
   }
 
   return (
     <div className={classNames.scrollbarContainer}>
-      {orders.map((order) =>
+      {orders.map(order =>
         <OrderCardComponent status={status} key={order._id} order={order} handleOrderClick={handleOrderClick} modalPath={modalPath}/>
       )}
     </div>

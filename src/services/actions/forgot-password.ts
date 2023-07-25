@@ -1,6 +1,6 @@
 import {urlName} from "../../utils/constans";
 import {checkResponse} from "../../utils/utils";
-import {AppThunk, AppThunkDispatch} from "../types";
+import {AppThunk} from "../types";
 
 export const EMAIL_LOADING: "EMAIL_LOADING" = "EMAIL_LOADING";
 export const EMAIL_SUCCESS: "EMAIL_SUCCESS" = "EMAIL_SUCCESS";
@@ -33,7 +33,7 @@ export function postFetch(email: string) {
 }
 
 export const postEmailCheck: AppThunk = (email: string) => {
-  return function (dispatch: AppThunkDispatch) {
+  return function (dispatch) {
     dispatch({
       type: EMAIL_LOADING
     })

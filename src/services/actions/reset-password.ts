@@ -1,7 +1,7 @@
 import {urlName} from "../../utils/constans";
 import {checkResponse} from "../../utils/utils";
 import {EMAIL_SUCCESS} from "./forgot-password";
-import {ActionDispatch, AppThunk} from "../types";
+import {AppThunk} from "../types";
 
 export const RESET_LOADING: "RESET_LOADING" = "RESET_LOADING";
 export const RESET_SUCCESS: "RESET_SUCCESS" = "RESET_SUCCESS";
@@ -35,7 +35,7 @@ export function postFetch(newPassword: string, token: string) {
 }
 
 export const postPasswordReset: AppThunk = (newPassword: string, token: string) => {
-  return function (dispatch: ActionDispatch) {
+  return function (dispatch) {
     dispatch({
       type: RESET_LOADING
     })

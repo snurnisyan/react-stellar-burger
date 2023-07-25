@@ -1,7 +1,7 @@
 import {urlName} from "../../utils/constans";
 import {checkResponse, getCookie} from "../../utils/utils";
 import {AUTH_ERROR, AUTH_LOADING, AUTH_SUCCESS} from "./auth";
-import {ActionDispatch, AppThunk} from "../types";
+import {AppThunk} from "../types";
 
 
 export function postFetch(email: string, password: string) {
@@ -19,7 +19,7 @@ export function postFetch(email: string, password: string) {
 }
 
 export const postLogin: AppThunk = (email: string, password: string) => {
-  return function (dispatch: ActionDispatch) {
+  return function (dispatch) {
     dispatch({
       type: AUTH_LOADING
     })

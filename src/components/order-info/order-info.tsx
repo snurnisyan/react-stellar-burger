@@ -9,13 +9,14 @@ import {useParams} from "react-router-dom";
 
 type TOrderInfoComponentProps = {
   orders: Array<IWSOrder>;
-  socketActions: {
+  socketSettings: {
     open: 'WS_CONNECTION_START' | 'WS_AUTH_CONNECTION_START',
-    close: 'WS_CONNECTION_CLOSED' | 'WS_AUTH_CONNECTION_CLOSED'
+    close: 'WS_CONNECTION_CLOSED' | 'WS_AUTH_CONNECTION_CLOSED',
+    payload: string
   };
 }
 
-export default function OrderInfoComponent({orders, socketActions}: TOrderInfoComponentProps): ReactElement {
+export default function OrderInfoComponent({orders, socketSettings}: TOrderInfoComponentProps): ReactElement {
   const classNames: IClassNames = {
     orderSection: styles.section,
     orderNumber: styles.number + " text text_type_digits-default",
@@ -24,8 +25,8 @@ export default function OrderInfoComponent({orders, socketActions}: TOrderInfoCo
   const { id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch({ type: socketActions.open });
-    return () => {dispatch({ type: socketActions.close })};
+    dispatch({ type: socketSettings.open, payload: socketSettings.payload });
+    return () => {dispatch({ type: socketSettings.close })};
   }, [dispatch]);
   const foundOrder = orders.find(order => order._id === id);
 

@@ -1,7 +1,7 @@
 import {urlName} from "../../utils/constans";
 import {checkResponse, getCookie} from "../../utils/utils";
 import {CLEAR_CONSTRUCTOR} from "./burger-constructor";
-import {ActionDispatch, AppThunk, IOrder} from "../types";
+import {AppThunk, IOrder} from "../types";
 
 export const ORDER_SUCCESS: 'ORDER_SUCCESS' = 'ORDER_SUCCESS';
 export const ORDER_LOADING: 'ORDER_LOADING' = 'ORDER_LOADING';
@@ -37,7 +37,7 @@ export function postFetch(ingredientIds: string[]) {
 }
 
 export const postData: AppThunk = (ingredientIds: string[]) => {
-  return function (dispatch: ActionDispatch) {
+  return function (dispatch) {
     dispatch({
       type: ORDER_LOADING
     })

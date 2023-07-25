@@ -1,6 +1,6 @@
 import {urlName} from "../../utils/constans";
 import {checkResponse, getCookie} from "../../utils/utils";
-import {ActionDispatch, AppThunk} from "../types";
+import {AppThunk} from "../types";
 
 export const TOKEN_UPDATE_LOADING: "TOKEN_UPDATE_LOADING" = "TOKEN_UPDATE_LOADING";
 export const TOKEN_UPDATE_SUCCESS: "TOKEN_UPDATE_SUCCESS" = "TOKEN_UPDATE_SUCCESS";
@@ -35,7 +35,7 @@ export function postFetch() {
 }
 
 export const postTokenUpdate: AppThunk<Promise<void>> = () => {
-  return function (dispatch: ActionDispatch) {
+  return function (dispatch) {
     dispatch({
       type: TOKEN_UPDATE_LOADING
     })

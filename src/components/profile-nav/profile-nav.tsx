@@ -4,7 +4,6 @@ import {NavLink} from 'react-router-dom';
 import {postLogout} from "../../services/actions/logout";
 import {IClassNames} from "../../utils/types";
 import {useDispatch} from "../../services/hooks/useDispatch";
-import {AppThunkDispatch} from "../../services/types";
 
 export default function ProfileNav(): ReactElement {
   const classNames: IClassNames = {
@@ -15,7 +14,7 @@ export default function ProfileNav(): ReactElement {
     link: styles.link + " text text_type_main-medium text_color_inactive pt-4 pb-4"
   }
 
-  const dispatch: AppThunkDispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const onLogoutClick = (): void => {
     dispatch(postLogout());

@@ -13,7 +13,6 @@ export const socketMiddleware = (wsUrl: string, wsActions: IWSActions): Middlewa
       const {wsInit, onOpen, onClose, onError, onMessage} = wsActions;
       if (type === wsInit) {
         socket = new WebSocket(`${wsUrl}${payload}`);
-        console.log(`socketUrl=${wsUrl}${payload}`);
       }
       if (socket) {
         socket.onopen = event => {

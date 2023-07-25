@@ -7,7 +7,6 @@ import {isUserAuthorized} from "../utils/utils";
 import {IClassNames} from "../utils/types";
 import {useDispatch} from "../services/hooks/useDispatch";
 import {useSelector} from "../services/hooks/useSelector";
-import {AppThunkDispatch} from "../services/types";
 
 interface IFormValue {
   email: string;
@@ -29,7 +28,7 @@ export default function ForgotPasswordPage(): ReactElement {
   };
 
   const navigate = useNavigate();
-  const dispatch: AppThunkDispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const {success, user} = useSelector((store) => ({
     success: store.forgotPassword.success,

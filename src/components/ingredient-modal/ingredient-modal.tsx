@@ -6,7 +6,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import {isEmpty} from "../../utils/utils";
 import {useDispatch} from "../../services/hooks/useDispatch";
 import {useSelector} from "../../services/hooks/useSelector";
-import {IIngredient} from "../../services/types";
 
 export default function IngredientModal(): ReactElement {
   const dispatch = useDispatch();
@@ -22,7 +21,7 @@ export default function IngredientModal(): ReactElement {
   const opened = !ingredientIsEmpty;
   useEffect(() => {
     if (ingredientIsEmpty && id) {
-      const foundIngredient = ingredients.find((ingredient: IIngredient) => ingredient._id === id);
+      const foundIngredient = ingredients.find(ingredient => ingredient._id === id);
       if (!foundIngredient || isEmpty(foundIngredient)) {
         return;
       }

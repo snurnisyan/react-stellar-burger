@@ -9,7 +9,6 @@ import {tabBunsValue, tabFillingsValue, tabSaucesValue} from "../../utils/consta
 import {IClassNames, TIngredientsMap} from "../../utils/types";
 import {useSelector} from "../../services/hooks/useSelector";
 import {useDispatch} from "../../services/hooks/useDispatch";
-import {IIngredient} from "../../services/types";
 
 export default function BurgerIngredients(): ReactElement {
   const classNames: IClassNames = {
@@ -56,24 +55,24 @@ export default function BurgerIngredients(): ReactElement {
 
 
   const buns = useMemo(() => {
-    return ingredients.filter((element: IIngredient) => {
+    return ingredients.filter(element => {
       return element.type === "bun";
     });
   }, [ingredients]);
   const sauces = useMemo(() => {
-    return ingredients.filter((element: IIngredient) => {
+    return ingredients.filter(element => {
       return element.type === "sauce";
     });
   }, [ingredients]);
   const fillings = useMemo(() => {
-    return ingredients.filter((element: IIngredient) => {
+    return ingredients.filter(element => {
       return element.type === "main";
     });
   }, [ingredients]);
 
   const ingredientsMap: TIngredientsMap = useMemo(() => {
     const mapped: TIngredientsMap = {};
-    ingredients.forEach((ingredient: IIngredient) => {
+    ingredients.forEach(ingredient => {
       mapped[ingredient._id] = ingredient;
     });
     return mapped;
@@ -112,7 +111,7 @@ export default function BurgerIngredients(): ReactElement {
       <div className={classNames.scrollbarContainer}>
         <h3 key={"buns"} className={classNames.subtitle} ref={refBunsScroll}>Булки</h3>
         <div className={classNames.ingredientsGrid} ref={refBuns}>
-          {buns.map((bun: IIngredient) =>
+          {buns.map(bun =>
             <IngredientComponent
               ingredient={bun}
               handleIngredientClick={handleIngredientClick}
@@ -122,7 +121,7 @@ export default function BurgerIngredients(): ReactElement {
         </div>
         <h3 key={"sauces"} className={classNames.subtitle} ref={refSaucesScroll}>Соусы</h3>
         <div className={classNames.ingredientsGrid} ref={refSauces}>
-          {sauces.map((sauce: IIngredient) =>
+          {sauces.map(sauce =>
             <IngredientComponent
               ingredient={sauce}
               handleIngredientClick={handleIngredientClick}
@@ -132,7 +131,7 @@ export default function BurgerIngredients(): ReactElement {
         </div>
         <h3 key={"fillings"} className={classNames.subtitle} ref={refFillingsScroll}>Начинки</h3>
         <div className={classNames.ingredientsGrid} ref={refFillings}>
-          {fillings.map((filling: IIngredient) =>
+          {fillings.map(filling =>
             <IngredientComponent
               ingredient={filling}
               handleIngredientClick={handleIngredientClick}

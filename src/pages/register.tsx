@@ -7,7 +7,6 @@ import {isUserAuthorized} from "../utils/utils";
 import {IClassNames} from "../utils/types";
 import {useSelector} from "../services/hooks/useSelector";
 import {useDispatch} from "../services/hooks/useDispatch";
-import {AppThunkDispatch} from "../services/types";
 
 interface IFormValue {
   name: string;
@@ -37,7 +36,7 @@ export default function RegisterPage(): ReactElement {
     user: store.authData.user
   }));
   const navigate = useNavigate();
-  const dispatch: AppThunkDispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isUserAuthorized(user)) {

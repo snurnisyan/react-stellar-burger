@@ -45,7 +45,7 @@ export default function IngredientComponent({ ingredient, handleIngredientClick 
 
   const chosenIds: Array<string> = [];
 
-  chosenIngredients.map((ingredient: IIngredient) => {
+  chosenIngredients.map((ingredient) => {
     return chosenIds.push(ingredient._id);
   })
 

@@ -1,6 +1,6 @@
 import {urlName} from "../../utils/constans";
 import {checkResponse} from "../../utils/utils";
-import {ActionDispatch, AppThunk, TIngredients} from "../types";
+import {AppThunk, TIngredients} from "../types";
 
 
 export const DATA_SUCCESS: 'DATA_SUCCESS' = 'DATA_SUCCESS';
@@ -24,7 +24,7 @@ interface IDataFailedAction {
 export type TBurgerIngredientsActions = IDataLoadingAction | IDataSuccessAction | IDataFailedAction;
 
 export const getData: AppThunk = () => {
-  return function (dispatch: ActionDispatch) {
+  return function (dispatch) {
     dispatch({
       type: DATA_LOADING
     })
