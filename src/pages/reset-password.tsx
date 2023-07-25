@@ -2,10 +2,12 @@ import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from '
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './form.module.css';
 import {Navigate, useLocation, useNavigate} from 'react-router-dom';
-import {useDispatch, useSelector} from "react-redux";
 import {postPasswordReset} from "../services/actions/reset-password";
 import {isUserAuthorized} from "../utils/utils";
-import {IClassNames, IUser} from "../utils/types";
+import {IClassNames} from "../utils/types";
+import {useDispatch} from "../services/hooks/useDispatch";
+import {useSelector} from "../services/hooks/useSelector";
+import {AppThunkDispatch} from "../services/types";
 
 interface IFormValue {
   password: string;
@@ -29,11 +31,10 @@ export default function ResetPasswordPage(): ReactElement {
   };
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch: AppThunkDispatch = useDispatch();
   const location = useLocation();
 
-
-  const {success, user}: {success: boolean, user: IUser} = useSelector((store: any) => ({
+  const {success, user} = useSelector((store) => ({
     success: store.resetPassword.success,
     user: store.authData.user
   }));

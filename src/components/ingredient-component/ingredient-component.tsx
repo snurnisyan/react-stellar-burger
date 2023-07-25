@@ -1,15 +1,16 @@
 import React, {useMemo} from "react";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../ingredient-component/ingredient-component.module.css";
-import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {checkElementPresence} from "../../utils/utils";
 import {Link, useLocation} from 'react-router-dom';
-import {IClassNames, IIngredient} from "../../utils/types";
+import {IClassNames} from "../../utils/types";
+import {useSelector} from "../../services/hooks/useSelector";
+import {IIngredient} from "../../services/types";
 
 type TIngredientComponentProps = {
   ingredient: IIngredient;
-  handleIngredientClick: (key: string) => void ;
+  handleIngredientClick: (key: string) => void;
 }
 
 export default function IngredientComponent({ ingredient, handleIngredientClick }: TIngredientComponentProps) {
@@ -23,7 +24,7 @@ export default function IngredientComponent({ ingredient, handleIngredientClick 
     image: "pr-4 pl-4",
   }
 
-  const {chosenIngredients}: {chosenIngredients: IIngredient[]} = useSelector((store: any) => ({
+  const {chosenIngredients} = useSelector((store) => ({
     chosenIngredients: store.chosenIngredients.chosenIngredients,
   }));
   const location = useLocation();

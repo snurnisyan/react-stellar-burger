@@ -1,4 +1,4 @@
-import {IUser, TIngredients} from "./types";
+import {IIngredient, IUser, TIngredients} from "../services/types";
 
 
 export class ForbiddenError extends Error {
@@ -19,7 +19,7 @@ export function checkResponse(res: Response) {
 }
 
 export function checkElementPresence(array: TIngredients, type: string) {
-  return array.some((item) => {
+  return array.some((item: IIngredient) => {
     return item.type === type
   });
 }
@@ -57,13 +57,14 @@ export function setCookie(name: string, value: string | null, props?: any) {
 }
 
 export function deleteCookie(name: string) {
-  setCookie(name, null, { expires: -1 });
+  document.cookie = name + '=; Max-Age=-99999999;';
+  // setCookie(name, null, { expires: -1 });
 }
 
 export function setTokens(accessToken: string, refreshToken: string) {
   let authToken = accessToken.split(' ')[1];
-  setCookie('token', authToken);
-  setCookie('refreshToken', refreshToken);
+  setCookie('token', authToken, { path: '/' });
+  setCookie('refreshToken', refreshToken, { path: '/' });
 }
 
 export const isEmpty = (obj: Object | undefined) => {

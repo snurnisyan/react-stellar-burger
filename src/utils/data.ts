@@ -1,4 +1,4 @@
-import {TIngredients} from "./types";
+import {TIngredients} from "../services/types";
 
 export const data: TIngredients = [
   {

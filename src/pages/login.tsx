@@ -2,10 +2,12 @@ import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from '
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './form.module.css';
 import {useNavigate} from 'react-router-dom';
-import {useDispatch, useSelector} from "react-redux";
 import {postLogin} from "../services/actions/login";
 import {isUserAuthorized} from "../utils/utils";
-import {IClassNames, IUser} from "../utils/types";
+import {IClassNames} from "../utils/types";
+import {useDispatch} from "../services/hooks/useDispatch";
+import {useSelector} from "../services/hooks/useSelector";
+import {AppThunkDispatch} from "../services/types";
 
 interface IFormValue {
   email: string;
@@ -30,9 +32,9 @@ export default function LoginPage(): ReactElement {
   };
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch: AppThunkDispatch = useDispatch();
 
-  const {accessToken, refreshToken, user}: {accessToken: string, refreshToken: string, user: IUser} = useSelector((store: any) => ({
+  const {accessToken, refreshToken, user} = useSelector((store) => ({
     accessToken: store.authData.accessToken,
     refreshToken: store.authData.refreshToken,
     user: store.authData.user

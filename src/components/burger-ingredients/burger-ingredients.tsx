@@ -1,13 +1,15 @@
-import React, {ReactElement, useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {ReactElement, RefObject, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./burger-ingredients.module.css";
 import IngredientComponent from "../ingredient-component/ingredient-component";
-import {useDispatch, useSelector} from "react-redux";
 import {SET_INGREDIENT} from "../../services/actions/ingredient-details";
 import IngredientModal from "../ingredient-modal/ingredient-modal";
 import {useInView} from 'react-hook-inview'
 import {tabBunsValue, tabFillingsValue, tabSaucesValue} from "../../utils/constans";
-import {IClassNames, IIngredient, TIngredients, TIngredientsMap} from "../../utils/types";
+import {IClassNames, TIngredientsMap} from "../../utils/types";
+import {useSelector} from "../../services/hooks/useSelector";
+import {useDispatch} from "../../services/hooks/useDispatch";
+import {IIngredient} from "../../services/types";
 
 export default function BurgerIngredients(): ReactElement {
   const classNames: IClassNames = {
@@ -29,12 +31,12 @@ export default function BurgerIngredients(): ReactElement {
   const [refFillings, isVisibleFillings] = useInView({threshold: 0.1});
 
   const dispatch = useDispatch();
-  const {ingredients}: {ingredients: TIngredients} = useSelector((store: any) => ({
+  const {ingredients} = useSelector((store) => ({
     ingredients: store.ingredientsData.ingredients
   }));
 
-  const handleScroll = useCallback((ref, value) => {
-    ref.current.scrollIntoView();
+  const handleScroll = useCallback((ref: RefObject<HTMLHeadingElement>, value: string) => {
+    ref.current?.scrollIntoView();
     setCurrent(value);
   }, [setCurrent]);
 
@@ -84,12 +86,12 @@ export default function BurgerIngredients(): ReactElement {
     })
   }
 
-  const bunsCallback = useCallback((value) => handleScroll(refBunsScroll, value), [handleScroll, refBunsScroll]);
-  const saucesCallback = useCallback((value) => handleScroll(refSaucesScroll, value), [handleScroll, refSaucesScroll]);
-  const fillingsCallback = useCallback((value) => handleScroll(refFillingsScroll, value), [handleScroll, refFillingsScroll]);
+  const bunsCallback = useCallback((value: string) => handleScroll(refBunsScroll, value), [handleScroll, refBunsScroll]);
+  const saucesCallback = useCallback((value: string) => handleScroll(refSaucesScroll, value), [handleScroll, refSaucesScroll]);
+  const fillingsCallback = useCallback((value: string) => handleScroll(refFillingsScroll, value), [handleScroll, refFillingsScroll]);
 
   if (ingredients.length === 0) {
-    return (<></>); // TODO: Loader?
+    return <p className={"text text_type_main-medium"}>Загрузка...</p>; // TODO: Loader?
   }
 
   return (

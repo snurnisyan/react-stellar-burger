@@ -1,17 +1,18 @@
 import React, {ReactElement, useState} from "react";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../order-details/order-details";
-import {useDispatch, useSelector} from "react-redux";
 import {postData} from "../../services/actions/order-details";
 import {useNavigate} from "react-router-dom";
-import {IIngredient, IUser, TIngredients} from "../../utils/types";
+import {useDispatch} from "../../services/hooks/useDispatch";
+import {useSelector} from "../../services/hooks/useSelector";
+import {AppThunkDispatch, IIngredient} from "../../services/types";
 
 export default function OrderButton({enabled}: {enabled: boolean}): ReactElement {
 
   const [isOpened, setIsOpened] = useState<boolean>(false);
-  const dispatch = useDispatch();
+  const dispatch: AppThunkDispatch = useDispatch();
   const navigate = useNavigate();
-  const {chosenIngredients, user}: {chosenIngredients: TIngredients, user: IUser} = useSelector((store: any) => ({
+  const {chosenIngredients, user} = useSelector((store) => ({
     chosenIngredients: store.chosenIngredients.chosenIngredients,
     user: store.authData.user
   }));

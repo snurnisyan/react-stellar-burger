@@ -1,10 +1,9 @@
 import React, {ReactElement} from "react";
 import styles from "../order-details/order-details.module.css";
 import Modal from "../modal/modal";
-import orderConfirmSvg from '../../images/order-confirm.svg'
-import PropTypes from "prop-types";
-import {useSelector} from "react-redux";
-import {IClassNames, IOrder} from "../../utils/types";
+import orderConfirmSvg from '../../images/order-confirm.svg';
+import {IClassNames} from "../../utils/types";
+import {useSelector} from "../../services/hooks/useSelector";
 
 type TOrderDetailsProps = {
   opened: boolean;
@@ -20,7 +19,7 @@ export default function OrderDetails({ opened, onModalClose }: TOrderDetailsProp
     orderText: "text text_type_main-default",
     orderTextPurple: "text text_type_main-default text_color_inactive pt-2 pb-15"
   }
-  const {order, error, loading}: {order: IOrder, error: boolean, loading: boolean} = useSelector((store: any) => ({
+  const {order, error, loading} = useSelector((store) => ({
     order: store.orderDetails.order,
     error: store.orderDetails.error,
     loading: store.orderDetails.loading
@@ -45,10 +44,4 @@ export default function OrderDetails({ opened, onModalClose }: TOrderDetailsProp
       </div>
     </Modal>
   )
-}
-
-OrderDetails.propTypes = {
-  opened: PropTypes.bool.isRequired,
-  header: PropTypes.string,
-  onModalClose: PropTypes.func.isRequired
 }

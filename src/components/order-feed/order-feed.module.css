@@ -1,0 +1,8 @@
+.feed {
+  display: flex;
+  flex-direction: column;
+  min-width: 600px;
+  align-items: flex-start;
+}
+
+

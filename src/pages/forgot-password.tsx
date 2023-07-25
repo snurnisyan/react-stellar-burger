@@ -3,9 +3,11 @@ import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-compon
 import styles from './form.module.css';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {postEmailCheck} from "../services/actions/forgot-password";
-import {useDispatch, useSelector} from "react-redux";
 import {isUserAuthorized} from "../utils/utils";
-import {IClassNames, IUser} from "../utils/types";
+import {IClassNames} from "../utils/types";
+import {useDispatch} from "../services/hooks/useDispatch";
+import {useSelector} from "../services/hooks/useSelector";
+import {AppThunkDispatch} from "../services/types";
 
 interface IFormValue {
   email: string;
@@ -27,9 +29,9 @@ export default function ForgotPasswordPage(): ReactElement {
   };
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch: AppThunkDispatch = useDispatch();
 
-  const {success, user}: {success: boolean, user: IUser} = useSelector((store: any) => ({
+  const {success, user} = useSelector((store) => ({
     success: store.forgotPassword.success,
     user: store.authData.user
   }));

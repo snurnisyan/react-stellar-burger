@@ -2,9 +2,11 @@ import React, {ChangeEvent, FormEvent, ReactElement, RefObject, useEffect, useRe
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './form.module.css';
 import ProfileNav from "../components/profile-nav/profile-nav";
-import {useDispatch, useSelector} from "react-redux";
 import {patchUser} from "../services/actions/profile";
-import {IClassNames, IUser} from "../utils/types";
+import {IClassNames} from "../utils/types";
+import {useSelector} from "../services/hooks/useSelector";
+import {useDispatch} from "../services/hooks/useDispatch";
+import {AppThunkDispatch} from "../services/types";
 
 interface IFormValue {
   name: string;
@@ -26,9 +28,9 @@ export default function ProfilePage(): ReactElement {
 
   const [form, setValue] = useState<IFormValue>({ name: '', email: '', password: '' });
 
-  const dispatch = useDispatch();
+  const dispatch: AppThunkDispatch = useDispatch();
 
-  const {user}: {user: IUser} = useSelector((store: any) => ({
+  const {user} = useSelector((store) => ({
     user: store.authData.user
   }));
 

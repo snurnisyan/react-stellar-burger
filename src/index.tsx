@@ -7,7 +7,11 @@ import {applyMiddleware, legacy_createStore as createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {rootReducer} from './services/reducers';
 import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension'
+import {composeWithDevTools} from 'redux-devtools-extension'
+import {socketMiddleware} from "./services/middleware/socketMiddleware";
+import {wsActions, wsAuthActions} from "./services/actions/wsActions";
+import {wsUrl} from "./utils/constans";
+import { createRoot } from 'react-dom/client';
 
 
 /*const composeEnhancers =
@@ -15,17 +19,17 @@ import { composeWithDevTools } from 'redux-devtools-extension'
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;*/
 
-const enhancer = composeWithDevTools(applyMiddleware(thunk));
+const enhancer = composeWithDevTools(applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions), socketMiddleware(wsUrl, wsAuthActions)));
 export const store = createStore(rootReducer, enhancer);
 
-
-ReactDOM.render(
+const rootContainer = document.getElementById('root');
+const root = createRoot(rootContainer!);
+root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

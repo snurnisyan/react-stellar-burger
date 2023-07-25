@@ -2,14 +2,15 @@ import React, {ReactElement, useEffect, useState} from 'react';
 import AppHeader from '../app-header/app-header';
 import {BrowserRouter} from 'react-router-dom';
 import {getUser} from "../../services/actions/profile";
-import {useDispatch} from "react-redux";
 import {getCookie} from "../../utils/utils";
 import {getData} from "../../services/actions/burger-ingredients";
 import RoutesComponent from "../routes-component/routes-component";
+import {useDispatch} from "../../services/hooks/useDispatch";
+import {AppThunkDispatch} from "../../services/types";
 
 export default function App(): ReactElement {
   const [isUserLoaded, setUserLoaded] = useState<boolean>(false);
-  const dispatch = useDispatch();
+  const dispatch: AppThunkDispatch = useDispatch();
 
   const init = async () => {
     if (getCookie('token')) {
