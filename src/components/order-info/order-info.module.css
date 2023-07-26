@@ -1,0 +1,13 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 640px;
+  padding-top: 120px;
+}
+
+.number {
+  align-self: center;
+}
+
+

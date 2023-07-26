@@ -2,8 +2,8 @@ import React, {ReactElement} from 'react';
 import styles from './profile-nav.module.css';
 import {NavLink} from 'react-router-dom';
 import {postLogout} from "../../services/actions/logout";
-import {useDispatch} from "react-redux";
 import {IClassNames} from "../../utils/types";
+import {useDispatch} from "../../services/hooks/useDispatch";
 
 export default function ProfileNav(): ReactElement {
   const classNames: IClassNames = {

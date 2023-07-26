@@ -1,0 +1,20 @@
+.scrollbar__container {
+  max-height: 80vh;
+  scrollbar-color: #2F2F37 #8585AD;
+  scrollbar-width: thin;
+  overflow-y: auto;
+}
+
+.scrollbar__container::-webkit-scrollbar {
+  width: 8px;
+  height: 852px;
+}
+
+.scrollbar__container::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+  margin-bottom: 52px;
+}
+
+.scrollbar__container::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}

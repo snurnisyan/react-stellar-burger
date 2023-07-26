@@ -1,0 +1,30 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  row-gap: 60px;
+  min-width: 580px;
+}
+
+.current__orders {
+  display: flex;
+  justify-content: space-between;
+}
+
+.numbers__container {
+  width: 272px;
+}
+
+.numbers__container:first-of-type {
+  padding-right: 36px;
+}
+
+.status__container {
+  display: flex;
+  flex-direction: column;
+  max-height: 321px;
+  flex-wrap: wrap;
+}
+
+.orders__total {
+  text-shadow: 0 0 16px rgba(51, 51, 255, 0.25), 0 0 8px rgba(51, 51, 255, 0.25), 0 4px 32px rgba(51, 51, 255, 0.5);
+}

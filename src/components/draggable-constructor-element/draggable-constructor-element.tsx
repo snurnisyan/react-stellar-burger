@@ -2,9 +2,10 @@ import React, {ReactElement, useRef} from "react";
 import styles from "./draggable-constructor-element.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {DELETE_INGREDIENT, UPDATE_ORDER} from "../../services/actions/burger-constructor";
-import {useDispatch} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
-import {IClassNames, IIngredient} from "../../utils/types";
+import {IClassNames} from "../../utils/types";
+import {useDispatch} from "../../services/hooks/useDispatch";
+import {IIngredient} from "../../services/types";
 
 interface IDraggableElementProps {
   filling: IIngredient;

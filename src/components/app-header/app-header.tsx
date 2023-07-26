@@ -34,7 +34,7 @@ export default function AppHeader(): ReactElement {
             Конструктор
           </NavLink>
           <NavLink
-            to='/'
+            to='/feed'
             className={({isActive}) =>
               classNames.navElement + " " + (isActive ? classNames.navElementActive : "")
             }

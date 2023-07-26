@@ -4,12 +4,12 @@ import BurgerConstructor from "../components/burger-constructor/burger-construct
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import styles from "./home.module.css";
-import {useSelector} from "react-redux";
+import {useSelector} from "../services/hooks/useSelector";
 
 
 export default function HomePage(): ReactElement {
 
-  const { loading, error }: { loading: boolean, error: boolean } = useSelector((store: any) => ({
+  const { loading, error } = useSelector((store) => ({
     loading: store.ingredientsData.loading,
     error: store.ingredientsData.error
   }));

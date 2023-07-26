@@ -8,10 +8,10 @@
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 2;
   transition: visibility .5s,opacity .5s linear;
   opacity: 0;
   visibility: hidden;
+  z-index: 1000;
 }
 
 .overlay_opened {

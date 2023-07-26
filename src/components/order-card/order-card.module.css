@@ -1,0 +1,27 @@
+.order {
+  background-color: #1C1C21;
+  border-radius: 40px;
+  box-sizing: border-box;
+  min-width: 584px;
+  display: flex;
+  flex-direction: column;
+}
+
+.order__id {
+  display: flex;
+  justify-content: space-between;
+}
+
+.image_price__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.img__container {
+  display: flex;
+}
+
+.price__container {
+  display: flex;
+}

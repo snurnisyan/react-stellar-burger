@@ -2,10 +2,11 @@ import React, {ChangeEvent, FormEvent, ReactElement, useEffect, useState} from '
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './form.module.css';
 import {useNavigate} from 'react-router-dom';
-import {useDispatch, useSelector} from "react-redux";
 import {postRegister} from "../services/actions/register";
 import {isUserAuthorized} from "../utils/utils";
-import {IClassNames, IUser} from "../utils/types";
+import {IClassNames} from "../utils/types";
+import {useSelector} from "../services/hooks/useSelector";
+import {useDispatch} from "../services/hooks/useDispatch";
 
 interface IFormValue {
   name: string;
@@ -29,7 +30,7 @@ export default function RegisterPage(): ReactElement {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
-  const {accessToken, refreshToken, user}: {accessToken: string, refreshToken: string, user: IUser} = useSelector((store: any) => ({
+  const {accessToken, refreshToken, user} = useSelector((store) => ({
     accessToken: store.authData.accessToken,
     refreshToken: store.authData.refreshToken,
     user: store.authData.user

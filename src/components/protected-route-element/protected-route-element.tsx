@@ -1,8 +1,7 @@
 import {Navigate} from 'react-router-dom';
 import React, {ReactElement} from 'react';
-import {useSelector} from "react-redux";
 import {isUserAuthorized} from "../../utils/utils";
-import {IUser} from "../../utils/types";
+import {useSelector} from "../../services/hooks/useSelector";
 
 type TProtectedRouteElementProps = {
   element: ReactElement;
@@ -10,7 +9,7 @@ type TProtectedRouteElementProps = {
 }
 
 export const ProtectedRouteElement = ({ element, redirect }: TProtectedRouteElementProps): ReactElement => {
-  const { user }: {user: IUser} = useSelector((store: any) => ({
+  const { user } = useSelector((store) => ({
     user: store.authData.user
   }));
 

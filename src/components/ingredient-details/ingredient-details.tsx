@@ -1,8 +1,9 @@
 import React, {ReactElement, useEffect, useState} from "react";
 import styles from "../ingredient-details/ingredient-details.module.css";
-import {useSelector} from "react-redux";
 import {useLocation, useParams} from "react-router-dom";
-import {IClassNames, IIngredient, TIngredients} from "../../utils/types";
+import {IClassNames} from "../../utils/types";
+import {useSelector} from "../../services/hooks/useSelector";
+import {IIngredient} from "../../services/types";
 
 export default function IngredientDetails(): ReactElement {
   const classNames: IClassNames = {
@@ -13,7 +14,7 @@ export default function IngredientDetails(): ReactElement {
   }
   const { id } = useParams();
   const location = useLocation();
-  const {ingredients, selectedIngredient}: {ingredients: TIngredients, selectedIngredient: IIngredient} = useSelector((store: any) => ({
+  const {ingredients, selectedIngredient} = useSelector((store) => ({
     ingredients: store.ingredientsData.ingredients,
     selectedIngredient: store.ingredientDetails.ingredient
   }));

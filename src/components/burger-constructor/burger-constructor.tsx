@@ -2,12 +2,14 @@ import React, {ReactElement, useMemo} from "react";
 import styles from "../burger-constructor/burger-constructor.module.css";
 import {ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderButton from "../order-button/order-button";
-import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
 import {ADD_INGREDIENT, REPLACE_BUN} from "../../services/actions/burger-constructor";
 import DraggableConstructorElement from "../draggable-constructor-element/draggable-constructor-element";
 import {v4 as uuidv4} from 'uuid';
-import {IClassNames, IIngredient} from "../../utils/types";
+import {IClassNames} from "../../utils/types";
+import {IIngredient} from "../../services/types";
+import {useSelector} from "../../services/hooks/useSelector";
+import {useDispatch} from "../../services/hooks/useDispatch";
 
 
 export default function BurgerConstructor(): ReactElement {
@@ -20,7 +22,7 @@ export default function BurgerConstructor(): ReactElement {
     dragContainer: styles.drag__container + " mb-4 pr-2",
     messageHeader: styles.message__header + " text text_type_main-medium text_color_inactive pb-4"
   }
-  const { chosenIngredients }: {chosenIngredients: IIngredient[]} = useSelector((store: any) => ({
+  const { chosenIngredients } = useSelector((store) => ({
     chosenIngredients: store.chosenIngredients.chosenIngredients
   }));
   const dispatch = useDispatch();
@@ -46,7 +48,7 @@ export default function BurgerConstructor(): ReactElement {
   });
 
   const totalPrice = useMemo(() => {
-    return chosenIngredients.reduce((total: number, ingredient: IIngredient) => {
+    return chosenIngredients.reduce((total, ingredient) => {
       if (ingredient.type === "bun") {
         total = total + (ingredient.price * 2);
       } else {
@@ -57,13 +59,13 @@ export default function BurgerConstructor(): ReactElement {
   }, [chosenIngredients]);
 
   const bun = useMemo(() => {
-    return chosenIngredients.find((element: IIngredient) => {
+    return chosenIngredients.find(element => {
       return element.type === "bun";
     });
   }, [chosenIngredients]);
 
   const fillings = useMemo(() => {
-    return chosenIngredients.filter((element: IIngredient) => {
+    return chosenIngredients.filter(element => {
       return element.type !== "bun";
     });
   }, [chosenIngredients]);
@@ -86,7 +88,7 @@ export default function BurgerConstructor(): ReactElement {
                 thumbnail={bun.image_mobile}
               />
               <div className={classNames.scrollbarContainer}>
-                {fillings.map((filling: IIngredient, index: number) => (
+                {fillings.map((filling, index) => (
                   <DraggableConstructorElement filling={filling} key={filling.uuid} hoverIndex={index}/>
                 ))
                 }

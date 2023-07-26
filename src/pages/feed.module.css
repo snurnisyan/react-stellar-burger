@@ -1,0 +1,11 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 1240px;
+}
+
+.feed__sections {
+  display: flex;
+  justify-content: center;
+}
