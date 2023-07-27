@@ -23,7 +23,7 @@ export const postLogin: AppThunk = (email: string, password: string) => {
     dispatch({
       type: AUTH_LOADING
     })
-    postFetch(email, password)
+    return postFetch(email, password)
       .then(checkResponse)
       .then(resJson => {
         if (resJson.success) {
@@ -33,6 +33,7 @@ export const postLogin: AppThunk = (email: string, password: string) => {
             refreshToken: resJson.refreshToken,
             user: resJson.user
           })
+          return resJson;
         } else {
           throw new Error(`Ошибка: success - false`);
         }
@@ -43,6 +44,7 @@ export const postLogin: AppThunk = (email: string, password: string) => {
           type: AUTH_ERROR,
           error: `Login error: ${JSON.stringify(err)}`
         })
+        return err;
       })
   }
 }

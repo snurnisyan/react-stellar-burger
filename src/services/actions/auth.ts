@@ -19,7 +19,7 @@ interface IAuthSuccessAction {
 
 interface IAuthErrorAction {
   readonly type: typeof AUTH_ERROR;
-  readonly error: boolean | string| null ;
+  readonly error: boolean | string | null ;
 }
 
 export type TAuthActions = IAuthLoadingAction | IAuthSuccessAction | IAuthErrorAction | TUserActions | TLogoutActions;
