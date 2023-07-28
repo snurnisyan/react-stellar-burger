@@ -86,7 +86,7 @@ export const patchUser: AppThunk = ({ email, name, password }: { email: string, 
     dispatch({
       type: USER_LOADING
     })
-    patchUserApi({ email, name, password })
+    return patchUserApi({ email, name, password })
       .then(checkResponse)
       .then(resJson => {
         if (resJson.success) {

@@ -1,6 +1,6 @@
 import {EMAIL_ERROR, EMAIL_LOADING, EMAIL_SUCCESS, TForgotPasswordActions} from "../actions/forgot-password";
 
-type TForgotPasswordState = {
+export type TForgotPasswordState = {
   success: boolean | null;
   loading: boolean;
 }

@@ -1,7 +1,7 @@
 import {ORDER_FAILED, ORDER_LOADING, ORDER_SUCCESS, TOrderDetailsActions} from "../actions/order-details";
 import {IOrder} from "../types";
 
-type TOrderDetailsState = {
+export type TOrderDetailsState = {
 
   order: IOrder;
   loading: boolean;

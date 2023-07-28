@@ -37,7 +37,7 @@ export const postEmailCheck: AppThunk = (email: string) => {
     dispatch({
       type: EMAIL_LOADING
     })
-    postFetch(email)
+    return postFetch(email)
       .then(checkResponse)
       .then(resJson => {
         if (resJson.success) {

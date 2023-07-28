@@ -14,7 +14,7 @@ import {
 } from "../actions/wsActions";
 import {IWSOrder} from "../types";
 
-type TOrdersState = {
+export type TOrdersState = {
   wsConnected: boolean;
   wsError?: Event;
   wsAuthConnected: boolean;

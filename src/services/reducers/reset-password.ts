@@ -1,6 +1,6 @@
 import {RESET_ERROR, RESET_LOADING, RESET_SUCCESS, TResetPasswordActions} from "../actions/reset-password";
 
-type TResetPasswordState = {
+export type TResetPasswordState = {
   success: boolean | null;
   loading: boolean;
 }

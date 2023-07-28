@@ -1,7 +1,7 @@
 import {DATA_FAILED, DATA_LOADING, DATA_SUCCESS, TBurgerIngredientsActions} from "../actions/burger-ingredients";
 import {TIngredients} from "../types";
 
-type TBurgerIngredientsState = {
+export type TBurgerIngredientsState = {
   ingredients: TIngredients;
   loading: boolean;
 

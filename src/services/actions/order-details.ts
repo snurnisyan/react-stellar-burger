@@ -41,7 +41,7 @@ export const postData: AppThunk = (ingredientIds: string[]) => {
     dispatch({
       type: ORDER_LOADING
     })
-    postFetch(ingredientIds)
+    return postFetch(ingredientIds)
       .then(checkResponse)
       .then(resJson => {
         dispatch({
