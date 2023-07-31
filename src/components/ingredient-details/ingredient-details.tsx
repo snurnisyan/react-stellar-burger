@@ -39,7 +39,7 @@ export default function IngredientDetails(): ReactElement {
   }
 
   return (
-    <div className={classNames.ingredientContainer}>
+    <div className={classNames.ingredientContainer} id={'ingredient-details'}>
       <img src={ingredient.image_large} alt={ingredient.name}/>
       <h3 className={classNames.ingredientTitle}>{ingredient.name}</h3>
       <div className={classNames.nutrientsContainer}>

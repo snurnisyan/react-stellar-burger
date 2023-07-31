@@ -27,7 +27,7 @@ export default function OrderDetails({ opened, onModalClose }: TOrderDetailsProp
 
   return (
     <Modal opened={opened} onModalClose={onModalClose}>
-      <div className={classNames.orderContainer}>
+      <div className={classNames.orderContainer} id={'order-details'}>
         {loading ? (
           <h3 className={classNames.orderTextId}>Пожалуйста, подождите, заказ загружается</h3>
         ) : ( error ? (
