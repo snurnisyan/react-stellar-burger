@@ -29,7 +29,6 @@ describe('displaying ingredients', () => {
     cy.get('div[class^=tab]').next().first().should('have.class', 'tab_type_current');
     cy.get('div[class^=tab]').last().should('not.have.class', 'tab_type_current');
 
-
     cy.get('div[class^=tab]').next().last().click();
     cy.get('div[class^=tab]').first().should('not.have.class', 'tab_type_current');
     cy.get('div[class^=tab]').next().first().should('not.have.class', 'tab_type_current');
