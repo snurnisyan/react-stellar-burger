@@ -12,7 +12,7 @@ export type TAuthState = {
   user: IUser;
 }
 
-const initialState: TAuthState = {
+export const initialState: TAuthState = {
   error: null,
   loading: false,
   accessToken: "",

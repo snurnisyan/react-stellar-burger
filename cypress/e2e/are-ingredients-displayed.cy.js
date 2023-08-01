@@ -1,6 +1,8 @@
+import {testSelectors} from "../../src/utils/constans";
+
 describe('displaying ingredients', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/')
+    cy.visit('/')
   })
 
   it('displays ingredients', () => {
@@ -14,24 +16,24 @@ describe('displaying ingredients', () => {
     cy.get('@buns').next().next().as('sauces');
     cy.get('@ingredientsScrollbar').find('div[class*=grid]').last().as('fillings');
 
-    cy.get('@buns').find('div[class*=ingredient__]').should('have.length.above', 0);
-    cy.get('@sauces').find('div[class*=ingredient__]').should('have.length.above', 0);
-    cy.get('@fillings').find('div[class*=ingredient__]').should('have.length.above', 0);
+    cy.get('@buns').find(testSelectors.ingredient).should('have.length.above', 0);
+    cy.get('@sauces').find(testSelectors.ingredient).should('have.length.above', 0);
+    cy.get('@fillings').find(testSelectors.ingredient).should('have.length.above', 0);
   })
 
   it('clicks Tab correctly', () => {
-    cy.get('div[class^=tab]').first().should('have.class', 'tab_type_current');
-    cy.get('div[class^=tab]').next().first().should('not.have.class', 'tab_type_current');
-    cy.get('div[class^=tab]').last().should('not.have.class', 'tab_type_current');
+    cy.get(testSelectors.tab).first().should('have.class', 'tab_type_current');
+    cy.get(testSelectors.tab).next().first().should('not.have.class', 'tab_type_current');
+    cy.get(testSelectors.tab).last().should('not.have.class', 'tab_type_current');
 
-    cy.get('div[class^=tab]').next().first().click();
-    cy.get('div[class^=tab]').first().should('not.have.class', 'tab_type_current');
-    cy.get('div[class^=tab]').next().first().should('have.class', 'tab_type_current');
-    cy.get('div[class^=tab]').last().should('not.have.class', 'tab_type_current');
+    cy.get(testSelectors.tab).next().first().click();
+    cy.get(testSelectors.tab).first().should('not.have.class', 'tab_type_current');
+    cy.get(testSelectors.tab).next().first().should('have.class', 'tab_type_current');
+    cy.get(testSelectors.tab).last().should('not.have.class', 'tab_type_current');
 
-    cy.get('div[class^=tab]').next().last().click();
-    cy.get('div[class^=tab]').first().should('not.have.class', 'tab_type_current');
-    cy.get('div[class^=tab]').next().first().should('not.have.class', 'tab_type_current');
-    cy.get('div[class^=tab]').last().should('have.class', 'tab_type_current');
+    cy.get(testSelectors.tab).next().last().click();
+    cy.get(testSelectors.tab).first().should('not.have.class', 'tab_type_current');
+    cy.get(testSelectors.tab).next().first().should('not.have.class', 'tab_type_current');
+    cy.get(testSelectors.tab).last().should('have.class', 'tab_type_current');
   })
 })

@@ -1,11 +1,7 @@
-import {resetPasswordReducer, TResetPasswordState} from "./reset-password";
+import {initialState, resetPasswordReducer} from "./reset-password";
 import {RESET_ERROR, RESET_LOADING, RESET_SUCCESS} from "../actions/reset-password";
 
 describe('reset password reducer', () => {
-  const initialState: TResetPasswordState = {
-    success: false,
-    loading: false
-  }
   it('should return initial state', () => {
     expect(resetPasswordReducer(undefined, {} as any)).toEqual(initialState)
   })

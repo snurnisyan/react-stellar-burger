@@ -1,4 +1,4 @@
-import {TOrdersState, wsReducer} from "./wsReducer";
+import {initialState, wsReducer} from "./wsReducer";
 import {
   WS_AUTH_CONNECTION_CLOSED,
   WS_AUTH_CONNECTION_ERROR,
@@ -13,17 +13,6 @@ import {
 } from "../actions/wsActions";
 
 describe('websocket reducer', () => {
-  const initialState: TOrdersState = {
-    wsConnected: false,
-    wsError: undefined,
-    wsAuthConnected: false,
-    wsAuthError: undefined,
-    orders: [],
-    userOrders: [],
-    total: 0,
-    totalToday: 0,
-  }
-
   it('should return initial state', () => {
     expect(wsReducer(undefined, {} as any)).toEqual(initialState)
   })

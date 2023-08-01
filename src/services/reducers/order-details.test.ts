@@ -1,13 +1,7 @@
-import {IOrder} from "../types";
-import {orderDetailsReducer, TOrderDetailsState} from "./order-details";
+import {initialState, orderDetailsReducer} from "./order-details";
 import {ORDER_FAILED, ORDER_LOADING, ORDER_SUCCESS} from "../actions/order-details";
 
 describe('order details reducer', () => {
-  const initialState: TOrderDetailsState = {
-  order: {} as IOrder,
-  loading: false,
-  error: false
-}
   it('should return initial state', () => {
     expect(orderDetailsReducer(undefined, {} as any)).toEqual(initialState)
   })

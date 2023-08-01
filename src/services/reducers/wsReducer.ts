@@ -25,7 +25,7 @@ export type TOrdersState = {
   totalToday: number;
 }
 
-const initialState: TOrdersState = {
+export const initialState: TOrdersState = {
   wsConnected: false,
   wsError: undefined,
   wsAuthConnected: false,

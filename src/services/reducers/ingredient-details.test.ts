@@ -1,11 +1,7 @@
-import {IIngredient} from "../types";
-import {ingredientDetailsReducer, TIngredientDetailsState} from "./ingredient-details";
+import {ingredientDetailsReducer, initialState} from "./ingredient-details";
 import {REMOVE_INGREDIENT, SET_INGREDIENT} from "../actions/ingredient-details";
 
 describe('ingredient details reducer', () => {
-  const initialState: TIngredientDetailsState = {
-  ingredient: {} as IIngredient
-}
   it('should return initial state', () => {
     expect(ingredientDetailsReducer(undefined, {} as any)).toEqual(initialState)
   })

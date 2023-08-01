@@ -5,7 +5,7 @@ export type TForgotPasswordState = {
   loading: boolean;
 }
 
-const initialState: TForgotPasswordState = {
+export const initialState: TForgotPasswordState = {
   success: false,
   loading: false
 }

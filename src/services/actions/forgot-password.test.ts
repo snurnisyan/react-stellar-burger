@@ -1,6 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk, {ThunkAction} from 'redux-thunk';
 import {EMAIL_ERROR, EMAIL_LOADING, EMAIL_SUCCESS, postEmailCheck} from "./forgot-password";
+import {testUser} from "../../utils/constans";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -31,7 +32,7 @@ describe('async POST forgot password actions', () => {
 
     const dispatch = store.dispatch as MockDispatch;
 
-    return dispatch(postEmailCheck("test@test.ru")).then(() => {
+    return dispatch(postEmailCheck(testUser.email)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
@@ -51,7 +52,7 @@ describe('async POST forgot password actions', () => {
       }})
     const dispatch = store.dispatch as MockDispatch;
 
-    return dispatch(postEmailCheck("test@test.ru")).then(() => {
+    return dispatch(postEmailCheck(testUser.email)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })

@@ -1,21 +1,13 @@
-import {authReducer, TAuthState} from "./auth";
+import {authReducer, initialState} from "./auth";
 import {AUTH_ERROR, AUTH_LOADING, AUTH_SUCCESS} from "../actions/auth";
 import {USER_ERROR, USER_LOADING, USER_SUCCESS} from "../actions/profile";
 import {LOGOUT_ERROR, LOGOUT_LOADING, LOGOUT_SUCCESS} from "../actions/logout";
-import {IUser} from "../types";
 import {toBeOneOf} from 'jest-extended';
+import {testUser} from "../../utils/constans";
 
 expect.extend({ toBeOneOf });
 
 describe('auth reducer', () => {
-  const initialState: TAuthState = {
-    error: null,
-    loading: false,
-    accessToken: "",
-    refreshToken: "",
-    user: {} as IUser
-  }
-
   it('should return initial state', () => {
     expect(authReducer(undefined, {} as any)).toEqual(initialState)
   })
@@ -33,11 +25,7 @@ describe('auth reducer', () => {
       type: AUTH_SUCCESS,
       accessToken: "Bearer test-token",
       refreshToken: "test refresh token",
-      user: {
-        name: "Test Name",
-        email: "test@test.ru",
-        password: "Test1234"
-      }
+      user: testUser
     }
 
     expect(authReducer(initialState, action)
@@ -45,11 +33,7 @@ describe('auth reducer', () => {
       ...initialState,
       accessToken: "test-token",
       refreshToken: "test refresh token",
-      user: {
-        name: "Test Name",
-        email: "test@test.ru",
-        password: "Test1234"
-      }
+      user: testUser
     })
   })
   it('should handle AUTH_ERROR', () => {
@@ -75,22 +59,14 @@ describe('auth reducer', () => {
   it('should handle USER_SUCCESS', () => {
     const action = {
       type: USER_SUCCESS,
-      user: {
-        name: "Test Name",
-        email: "test@test.ru",
-        password: "Test1234"
-      }
+      user: testUser
     }
     expect(authReducer(initialState, action))
       .toMatchObject({
         ...initialState,
         accessToken: expect.toBeOneOf([expect.anything(), undefined]),
         refreshToken: expect.toBeOneOf([expect.anything(), undefined]),
-        user: {
-          name: "Test Name",
-          email: "test@test.ru",
-          password: "Test1234"
-        }
+        user: testUser
     })
   })
   it('should handle USER_ERROR', () => {

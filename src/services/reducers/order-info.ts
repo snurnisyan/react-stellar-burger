@@ -5,7 +5,7 @@ export type TOrdersState = {
   orderInfo: IWSOrder;
 }
 
-const initialState: TOrdersState = {
+export const initialState: TOrdersState = {
   orderInfo: {} as IWSOrder
 }
 

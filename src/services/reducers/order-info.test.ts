@@ -1,12 +1,7 @@
-import {IWSOrder} from "../types";
-import {orderInfoReducer, TOrdersState} from "./order-info";
+import {initialState, orderInfoReducer} from "./order-info";
 import {REMOVE_ORDER, SET_ORDER} from "../actions/order-info";
 
 describe('order info reducer', () => {
-  const initialState: TOrdersState = {
-    orderInfo: {} as IWSOrder
-  }
-
   it('should return initial state', () => {
     expect(orderInfoReducer(undefined, {} as any)).toEqual(initialState)
   })

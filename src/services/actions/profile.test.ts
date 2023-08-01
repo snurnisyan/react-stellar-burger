@@ -1,6 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk, {ThunkAction} from 'redux-thunk';
 import {getUser, patchUser, USER_ERROR, USER_LOADING, USER_SUCCESS} from "./profile";
+import {testUser} from "../../utils/constans";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -15,10 +16,7 @@ describe('async GET profile actions', () => {
     jest.spyOn(global, "fetch").mockResolvedValue({
       json: jest.fn().mockReturnValue({
         success: true,
-        user: {
-          name: "Test Name",
-          email: "test@test.ru"
-        },
+        user: testUser,
       }),
       ok: true,
     } as any)
@@ -27,10 +25,7 @@ describe('async GET profile actions', () => {
       { type: USER_LOADING },
       {
         type: USER_SUCCESS,
-        user: {
-          name: "Test Name",
-          email: "test@test.ru"
-        }
+        user: testUser
       }]
 
     const store = mockStore({ authData: {
@@ -83,10 +78,7 @@ describe('async PATCH profile actions', () => {
     jest.spyOn(global, "fetch").mockResolvedValue({
       json: jest.fn().mockReturnValue({
         success: true,
-        user: {
-          name: "Test Name",
-          email: "test@test.ru"
-        },
+        user: testUser,
       }),
       ok: true,
     } as any)
@@ -95,10 +87,7 @@ describe('async PATCH profile actions', () => {
       { type: USER_LOADING },
       {
         type: USER_SUCCESS,
-        user: {
-          name: "Test Name",
-          email: "test@test.ru"
-        }
+        user: testUser
       }]
 
     const store = mockStore({ authData: {
@@ -110,7 +99,7 @@ describe('async PATCH profile actions', () => {
       }})
 
     const dispatch = store.dispatch as MockDispatch;
-    return dispatch(patchUser({ email: "test@test.ru", name: "Test Name", password: "Test1234" })).then(() => {
+    return dispatch(patchUser({ email: testUser.email, name: testUser.name, password: testUser.password })).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
@@ -136,7 +125,7 @@ describe('async PATCH profile actions', () => {
       }})
     const dispatch = store.dispatch as MockDispatch;
 
-    return dispatch(patchUser({ email: "test@test.ru", name: "Test Name", password: "Test1234" })).then(() => {
+    return dispatch(patchUser({ email: testUser.email, name: testUser.name, password: testUser.password })).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })

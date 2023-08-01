@@ -2,6 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk, {ThunkAction} from 'redux-thunk';
 import {AUTH_ERROR, AUTH_LOADING, AUTH_SUCCESS} from "./auth";
 import {postRegister} from "./register";
+import {testUser} from "../../utils/constans";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -19,10 +20,7 @@ describe('async POST register actions', () => {
         success: true,
         accessToken: "Bearer test-token",
         refreshToken: "test refresh token",
-        user: {
-          name: "Test Name",
-          email: "test@test.ru"
-        },
+        user: testUser,
       }),
       ok: true,
     } as any)
@@ -33,10 +31,7 @@ describe('async POST register actions', () => {
         type: AUTH_SUCCESS,
         accessToken: "Bearer test-token",
         refreshToken: "test refresh token",
-        user: {
-          name: "Test Name",
-          email: "test@test.ru"
-        }
+        user: testUser
       }]
 
     const store = mockStore({ authData: {
@@ -48,7 +43,7 @@ describe('async POST register actions', () => {
       }})
 
     const dispatch = store.dispatch as MockDispatch;
-    return dispatch(postRegister("test@test.ru", "Test1234", "Test Name")).then(() => {
+    return dispatch(postRegister(testUser.email, testUser.password, testUser.name)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
@@ -74,7 +69,7 @@ describe('async POST register actions', () => {
       }})
     const dispatch = store.dispatch as MockDispatch;
 
-    return dispatch(postRegister("test@test.ru", "Test1234", "Test Name")).then(() => {
+    return dispatch(postRegister(testUser.email, testUser.password, testUser.name)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })

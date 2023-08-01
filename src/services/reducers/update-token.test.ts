@@ -1,13 +1,7 @@
-import {TUpdateTokenState, updateTokenReducer} from "./update-token";
+import {initialState, updateTokenReducer} from "./update-token";
 import {TOKEN_UPDATE_ERROR, TOKEN_UPDATE_LOADING, TOKEN_UPDATE_SUCCESS} from "../actions/update-token";
 
 describe('update token reducer', () => {
-  const initialState: TUpdateTokenState = {
-    success: false,
-    loading: false,
-    accessToken: "",
-    refreshToken: ""
-  }
   it('should return initial state', () => {
     expect(updateTokenReducer(undefined, {} as any)).toEqual(initialState)
   })

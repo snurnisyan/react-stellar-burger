@@ -5,7 +5,7 @@ export type TResetPasswordState = {
   loading: boolean;
 }
 
-const initialState: TResetPasswordState = {
+export const initialState: TResetPasswordState = {
   success: false,
   loading: false
 }

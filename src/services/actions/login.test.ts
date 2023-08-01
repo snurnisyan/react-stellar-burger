@@ -3,23 +3,11 @@ import thunk, {ThunkAction} from 'redux-thunk';
 // import fetchMock from 'fetch-mock';
 import {AUTH_ERROR, AUTH_LOADING, AUTH_SUCCESS} from "./auth";
 import {postLogin} from "./login";
+import {testUser} from "../../utils/constans";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 type MockDispatch = (action: ThunkAction<any, any, any, any>) => Promise<any>;
-
-// fetchMock.postOnce(`${urlName}/auth/login`, {
-//   body: {
-//     accessToken: "test token",
-//     refreshToken: "test refresh token",
-//     user: {
-//       name: "Test Name",
-//       email: "test@test.ru",
-//       password: "Test1234"
-//     }
-//   },
-//   headers: { 'content-type': 'application/json' }
-// })
 
 describe('async POST login actions', () => {
   afterEach(() => {
@@ -32,10 +20,7 @@ describe('async POST login actions', () => {
         success: true,
         accessToken: "Bearer test-token",
         refreshToken: "test refresh token",
-        user: {
-          name: "Test Name",
-          email: "test@test.ru"
-        },
+        user: testUser,
       }),
       ok: true,
     } as any)
@@ -46,10 +31,7 @@ describe('async POST login actions', () => {
         type: AUTH_SUCCESS,
         accessToken: "Bearer test-token",
         refreshToken: "test refresh token",
-        user: {
-          name: "Test Name",
-          email: "test@test.ru"
-        }
+        user: testUser,
       }]
 
     const store = mockStore({ authData: {
@@ -61,7 +43,7 @@ describe('async POST login actions', () => {
     }})
 
     const dispatch = store.dispatch as MockDispatch;
-    return dispatch(postLogin("Test Name", "Test1234")).then(() => {
+    return dispatch(postLogin(testUser.email, testUser.password)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
@@ -87,7 +69,7 @@ describe('async POST login actions', () => {
       }})
     const dispatch = store.dispatch as MockDispatch;
 
-    return dispatch(postLogin("Test Name", "Test1234")).then(() => {
+    return dispatch(postLogin(testUser.email, testUser.password)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })

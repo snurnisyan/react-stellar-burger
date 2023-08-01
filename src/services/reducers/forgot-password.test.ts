@@ -1,11 +1,7 @@
-import {forgotPasswordReducer, TForgotPasswordState} from "./forgot-password";
+import {forgotPasswordReducer, initialState} from "./forgot-password";
 import {EMAIL_ERROR, EMAIL_LOADING, EMAIL_SUCCESS} from "../actions/forgot-password";
 
 describe('forgot password reducer', () => {
-  const initialState: TForgotPasswordState = {
-  success: false,
-  loading: false
-}
   it('should return initial state', () => {
     expect(forgotPasswordReducer(undefined, {} as any)).toEqual(initialState)
   })

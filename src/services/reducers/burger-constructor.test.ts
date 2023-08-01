@@ -1,4 +1,4 @@
-import {chosenIngredientsReducer, TConstructorState} from "./burger-constructor";
+import {chosenIngredientsReducer, initialState} from "./burger-constructor";
 import {
   ADD_INGREDIENT,
   CLEAR_CONSTRUCTOR,
@@ -8,10 +8,6 @@ import {
 } from "../actions/burger-constructor";
 
 describe('constructor reducer', () => {
-  const initialState: TConstructorState = {
-    chosenIngredients: []
-  }
-
   it('should return initial state', () => {
     expect(chosenIngredientsReducer(undefined, {} as any)).toEqual(initialState)
   })

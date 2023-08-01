@@ -1,13 +1,7 @@
-import {ingredientsReducer, TBurgerIngredientsState} from "./burger-ingredients";
+import {ingredientsReducer, initialState} from "./burger-ingredients";
 import {DATA_FAILED, DATA_LOADING, DATA_SUCCESS} from "../actions/burger-ingredients";
 
 describe('ingredients reducer', () => {
-  const initialState: TBurgerIngredientsState = {
-    ingredients: [],
-    loading: false,
-    error: false
-  }
-
   it('should return initial state', () => {
     expect(ingredientsReducer(undefined, {} as any)).toEqual(initialState)
   })

@@ -5,7 +5,7 @@ export type TIngredientDetailsState = {
   ingredient: IIngredient;
 }
 
-const initialState: TIngredientDetailsState = {
+export const initialState: TIngredientDetailsState = {
   ingredient: {} as IIngredient
 }
 
