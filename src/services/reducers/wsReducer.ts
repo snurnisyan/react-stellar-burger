@@ -14,7 +14,7 @@ import {
 } from "../actions/wsActions";
 import {IWSOrder} from "../types";
 
-type TOrdersState = {
+export type TOrdersState = {
   wsConnected: boolean;
   wsError?: Event;
   wsAuthConnected: boolean;
@@ -25,7 +25,7 @@ type TOrdersState = {
   totalToday: number;
 }
 
-const initialState: TOrdersState = {
+export const initialState: TOrdersState = {
   wsConnected: false,
   wsError: undefined,
   wsAuthConnected: false,

@@ -22,7 +22,7 @@ export const postRegister: AppThunk = (email: string, password: string, name: st
     dispatch({
       type: AUTH_LOADING
     })
-    postFetch(email, password, name)
+    return postFetch(email, password, name)
       .then(checkResponse)
       .then(resJson => {
         if (resJson.success) {

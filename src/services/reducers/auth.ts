@@ -4,7 +4,7 @@ import {USER_ERROR, USER_LOADING, USER_SUCCESS} from "../actions/profile";
 import {LOGOUT_ERROR, LOGOUT_LOADING, LOGOUT_SUCCESS} from "../actions/logout";
 import {IUser} from "../types";
 
-type TAuthState = {
+export type TAuthState = {
   error: boolean | null | string;
   loading: boolean;
   accessToken: string | undefined;
@@ -12,7 +12,7 @@ type TAuthState = {
   user: IUser;
 }
 
-const initialState: TAuthState = {
+export const initialState: TAuthState = {
   error: null,
   loading: false,
   accessToken: "",
@@ -28,8 +28,8 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
         ...state,
         error: null,
         loading: false,
-        accessToken: action.accessToken,
-        refreshToken: action.refreshToken,
+        accessToken: getCookie("token"),
+        refreshToken: getCookie("refreshToken"),
         user: action.user
       }
     }

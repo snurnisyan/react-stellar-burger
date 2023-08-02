@@ -1,6 +1,5 @@
 import {urlName} from "../../utils/constans";
 import {checkResponse} from "../../utils/utils";
-import {EMAIL_SUCCESS} from "./forgot-password";
 import {AppThunk} from "../types";
 
 export const RESET_LOADING: "RESET_LOADING" = "RESET_LOADING";
@@ -39,12 +38,12 @@ export const postPasswordReset: AppThunk = (newPassword: string, token: string) 
     dispatch({
       type: RESET_LOADING
     })
-    postFetch(newPassword, token)
+    return postFetch(newPassword, token)
       .then(checkResponse)
       .then(resJson => {
         if (resJson.success) {
           dispatch({
-            type: EMAIL_SUCCESS
+            type: RESET_SUCCESS
           })
         } else {
           throw new Error(`Ошибка: ${resJson.message}`);

@@ -1,11 +1,11 @@
 import {EMAIL_ERROR, EMAIL_LOADING, EMAIL_SUCCESS, TForgotPasswordActions} from "../actions/forgot-password";
 
-type TForgotPasswordState = {
+export type TForgotPasswordState = {
   success: boolean | null;
   loading: boolean;
 }
 
-const initialState: TForgotPasswordState = {
+export const initialState: TForgotPasswordState = {
   success: false,
   loading: false
 }

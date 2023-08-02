@@ -6,14 +6,14 @@ import {
 } from "../actions/update-token";
 import {setTokens} from "../../utils/utils";
 
-type TUpdateTokenState = {
+export type TUpdateTokenState = {
   success: boolean | null;
   loading: boolean;
   accessToken: string;
   refreshToken: string;
 }
 
-const initialState: TUpdateTokenState = {
+export const initialState: TUpdateTokenState = {
   success: false,
   loading: false,
   accessToken: "",

@@ -14,7 +14,7 @@ import {useDispatch} from "../../services/hooks/useDispatch";
 
 export default function BurgerConstructor(): ReactElement {
   const classNames: IClassNames = {
-    constructorSection: styles.section + " pt-25 pl-4 pr-2",
+    constructorSection: styles.constructor + " pt-25 pl-4 pr-2",
     bunElement: "ml-8 mb-4 mr-2",
     priceContainer: styles.price__container,
     scrollbarContainer: styles.scrollbar__container,

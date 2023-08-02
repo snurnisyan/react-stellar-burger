@@ -1,14 +1,14 @@
 import {ORDER_FAILED, ORDER_LOADING, ORDER_SUCCESS, TOrderDetailsActions} from "../actions/order-details";
 import {IOrder} from "../types";
 
-type TOrderDetailsState = {
+export type TOrderDetailsState = {
 
   order: IOrder;
   loading: boolean;
   error: boolean | null;
 }
 
-const initialState: TOrderDetailsState = {
+export const initialState: TOrderDetailsState = {
   order: {} as IOrder,
   loading: false,
   error: false

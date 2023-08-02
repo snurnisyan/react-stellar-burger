@@ -1,14 +1,14 @@
 import {DATA_FAILED, DATA_LOADING, DATA_SUCCESS, TBurgerIngredientsActions} from "../actions/burger-ingredients";
 import {TIngredients} from "../types";
 
-type TBurgerIngredientsState = {
+export type TBurgerIngredientsState = {
   ingredients: TIngredients;
   loading: boolean;
 
   error: boolean | null;
 }
 
-const initialState: TBurgerIngredientsState = {
+export const initialState: TBurgerIngredientsState = {
   ingredients: [],
   loading: false,
   error: false

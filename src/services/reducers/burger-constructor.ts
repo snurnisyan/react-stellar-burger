@@ -8,11 +8,11 @@ import {
 } from "../actions/burger-constructor";
 import {IIngredient, TIngredients} from "../types";
 
-type TConstructorState = {
+export type TConstructorState = {
   chosenIngredients: TIngredients;
 }
 
-const initialState: TConstructorState = {
+export const initialState: TConstructorState = {
   chosenIngredients: []
 }
 

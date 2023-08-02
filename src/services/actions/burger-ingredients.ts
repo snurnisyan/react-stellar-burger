@@ -28,7 +28,7 @@ export const getData: AppThunk = () => {
     dispatch({
       type: DATA_LOADING
     })
-    fetch(`${urlName}/ingredients`)
+    return fetch(`${urlName}/ingredients`)
       .then(checkResponse)
       .then(resJson => {
         dispatch({

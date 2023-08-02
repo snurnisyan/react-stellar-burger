@@ -1,15 +1,11 @@
 import {IWSOrder} from "../types";
 import {REMOVE_ORDER, SET_ORDER, TOrderInfoActions} from "../actions/order-info";
 
-type TOrdersState = {
-  orderInfoLoading: boolean;
-  orderInfoError: boolean;
+export type TOrdersState = {
   orderInfo: IWSOrder;
 }
 
-const initialState: TOrdersState = {
-  orderInfoLoading: false,
-  orderInfoError: false,
+export const initialState: TOrdersState = {
   orderInfo: {} as IWSOrder
 }
 

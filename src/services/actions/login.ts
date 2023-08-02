@@ -1,5 +1,5 @@
 import {urlName} from "../../utils/constans";
-import {checkResponse, getCookie} from "../../utils/utils";
+import {checkResponse} from "../../utils/utils";
 import {AUTH_ERROR, AUTH_LOADING, AUTH_SUCCESS} from "./auth";
 import {AppThunk} from "../types";
 
@@ -8,8 +8,7 @@ export function postFetch(email: string, password: string) {
   return fetch(`${urlName}/auth/login`, {
     method: 'POST',
     headers: {
-      'Content-Type':'application/json',
-      'Authorization': 'Bearer ' + getCookie('token')
+      'Content-Type':'application/json'
     },
     body: JSON.stringify({
       email: email,
@@ -23,7 +22,7 @@ export const postLogin: AppThunk = (email: string, password: string) => {
     dispatch({
       type: AUTH_LOADING
     })
-    postFetch(email, password)
+    return postFetch(email, password)
       .then(checkResponse)
       .then(resJson => {
         if (resJson.success) {
@@ -33,6 +32,7 @@ export const postLogin: AppThunk = (email: string, password: string) => {
             refreshToken: resJson.refreshToken,
             user: resJson.user
           })
+          return resJson;
         } else {
           throw new Error(`Ошибка: success - false`);
         }
@@ -43,6 +43,7 @@ export const postLogin: AppThunk = (email: string, password: string) => {
           type: AUTH_ERROR,
           error: `Login error: ${JSON.stringify(err)}`
         })
+        return err;
       })
   }
 }

@@ -1,11 +1,11 @@
 import {REMOVE_INGREDIENT, SET_INGREDIENT, TIngredientDetailsActions} from "../actions/ingredient-details";
 import {IIngredient} from "../types";
 
-type TIngredientDetailsState = {
+export type TIngredientDetailsState = {
   ingredient: IIngredient;
 }
 
-const initialState: TIngredientDetailsState = {
+export const initialState: TIngredientDetailsState = {
   ingredient: {} as IIngredient
 }
 
