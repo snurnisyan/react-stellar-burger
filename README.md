@@ -1,10 +1,12 @@
-# Проект "Stellar Burger"
+<h1 align="center">Stellar Burgers</h1>
 
 Проект представляет собой одностраничный сайт космической бургерной, на которой можно собрать бургер из ингредиентов и сделать заказ.
 
 Проект создан в процессе обучения веб-разработки на Яндекс Практикуме.
 
 Готовый проект можно посмотреть по ссылке: **https://syan-burgers.students.nomoreparties.co/**
+
+![Stellar-burgers](https://github.com/snurnisyan/react-stellar-burger/assets/127420427/8d30036f-6fda-44b9-92ee-bcdc9515d0f3)
 
 ------
 
