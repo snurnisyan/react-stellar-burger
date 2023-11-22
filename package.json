@@ -47,7 +47,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress": "cypress open cache clear",
-    "deploy-script": "npm run build && scp -r ./build/* snurnisyan@62.84.125.134:/home/snurnisyan/stellar-frontend"
+    "deploy-script": "npm run build && scp -r ./build/* snurnisyan@62.84.125.134:/home/snurnisyan/stellar-frontend",
+    "deploy-pages": "gh-pages -d build"
   },
   "eslintConfig": {
     "plugins": [
