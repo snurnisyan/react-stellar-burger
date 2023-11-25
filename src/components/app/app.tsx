@@ -25,7 +25,7 @@ export default function App(): ReactElement {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <AppHeader/>
         { !isUserLoaded ? (
           <p className={"text text_type_main-medium"}>Загрузка...</p>
